@@ -61,12 +61,6 @@ class Master(Script):
     env.set_params(status_params)
     self.configure(env)
     
-    #kill topology
-    Execute('storm kill truck-event-processor')
-    
-    #kill activemq
-    Execute('/opt/activemq/latest/bin/activemq stop')
-    
     #kill webapp
     
     #kill child processes if exists
@@ -75,6 +69,13 @@ class Master(Script):
     Execute (format('kill `cat {stack_pidfile}` >/dev/null 2>&1')) 
     #remove pid file
     Execute (format("rm -f {stack_pidfile}"))
+    
+    #kill activemq
+    Execute('/opt/activemq/latest/bin/activemq stop')
+    
+    #kill topology
+    Execute('storm kill truck-event-processor')
+    
           
   def start(self, env):
     import params
