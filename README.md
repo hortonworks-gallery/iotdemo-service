@@ -116,21 +116,19 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
   - Delete the service
   
     ```
-    curl -u admin:admin -i -H 'X-Requested-By: ambari' -X DELETE http://sandbox.hortonworks.com:8080/api/v1/clusters/Sandbox/services/IOTDEMO
-    ```
-  - Remove artifacts 
-  
-    ```
-export SERVICE=IOTDEMO
 export PASSWORD=admin
 export AMBARI_HOST=localhost
 
 output=`curl -u $user:$pass -i -H 'X-Requested-By: ambari'  http://$host/api/v1/clusters`
 CLUSTER=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
-
+    
+curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/IOTDEMO
+    ```
+  - Remove artifacts 
+  
+    ```
 rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/iotdemo*
 rm -rf /root/sedev
-curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
     ```
 
 
