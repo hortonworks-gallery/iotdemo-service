@@ -119,7 +119,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 export PASSWORD=admin
 export AMBARI_HOST=localhost
 
-output=`curl -u $user:$pass -i -H 'X-Requested-By: ambari'  http://$AMBARI_HOST/api/v1/clusters`
+output=`curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari'  http://$AMBARI_HOST/api/v1/clusters`
 CLUSTER=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
     
 curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/IOTDEMO
