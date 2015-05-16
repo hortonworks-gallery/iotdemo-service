@@ -134,7 +134,7 @@ rm -rf /root/sedev
 
 #### Access webapp
 
-- Open the webapp at http://sandbox.hortonworks.com:8081
+- Open the webapp at http://sandbox.hortonworks.com:8081/storm-demo-web-app/
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
 ![Image](../master/screenshots/demo.png?raw=true)
