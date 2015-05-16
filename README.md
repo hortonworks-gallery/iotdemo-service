@@ -63,8 +63,7 @@ sudo service ambari restart
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
 On bottom left -> Actions -> Add service -> check IOTDEMO server -> Next -> Next -> Configure service -> Next -> Deploy
-![Image](../master/screenshots/screenshot-vnc-config.png?raw=true)
-
+![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
   - The service currently requires that it is installed on the Ambari server node and that Kafka and Zookeeper and also running on the same node.
@@ -79,6 +78,9 @@ Things to remember while configuring the service
     - HBase master host
     - Kafka host/port (also where ActiveMQ will be installed)
   
+![Image](../master/screenshots/config1.png?raw=true)
+
+![Image](../master/screenshots/config2.png?raw=true)
       
 
 - On successful deployment you will see the IOTDEMO service as part of Ambari stack and will be able to start/stop the service from here:
