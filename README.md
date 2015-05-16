@@ -58,7 +58,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 ```
 cd /var/lib/ambari-server/resources/stacks/HDP/2.2/services
 git clone https://github.com/abajwa-hw/iotdemo-service.git    
-sudo service ambari restart
+sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
