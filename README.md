@@ -84,13 +84,11 @@ Things to remember while configuring the service
       
 
 - On successful deployment you will see the IOTDEMO service as part of Ambari stack and will be able to start/stop the service from here:
-![Image](../master/screenshots/screenshot-vnc-stack.png?raw=true)
+![Image](../master/screenshots/started-service.png?raw=true)
 
-- When you've completed the install process, IOTDEMO server will appear in Ambari 
-![Image](../master/screenshots/screenshot-freeipa-stack.png?raw=true)
 
 - You can see the parameters you configured under 'Configs' tab
-![Image](../master/screenshots/screenshot-freeipa-stack-config.png?raw=true)
+![Image](../master/screenshots/started-config.png?raw=true)
 
 - One benefit to wrapping the component in Ambari service is that you can now monitor/manage this service remotely via REST API
 ```
