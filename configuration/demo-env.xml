@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+  <property>
+    <name>demo_piddir</name>
+    <value>/var/run/iotdemo</value>
+    <description>Process ID Directory</description>
+  </property> 
+
+ <property>
+    <name>content</name>
+    <description>This is the jinja template for config.properties file</description>
+    <value>
+################################
+#### STREAM SIMULATOR CONFIG ####
+#################################
+#comma-separated list of kafka brokers
+kafka.brokers={{kafka_broker_host}}:{{kafka_port}}
+
+#Active MQ server
+activemq.server.url=tcp://{{activemq_host}}:61616
+
+#######################
+#### WEBAPP CONFIG ####
+#######################
+activemq.server={{activemq_host}}
+activemq.port=61613
+hbase.zookeeper.server={{hbase_master_host}}
+
+######################################
+#### STORM TOPOLOGY CONFIGURATION ####
+######################################
+# Notification Settings for email
+notification.email=false
+notification.email.address=user@host.com
+notification.email.subject=Unsafe Driving Alerts
+mail.smtp.host=sandbox.hortonworks.com
+mail.smtp.port=25
+
+# Notification Settings for AMQP topic
+notification.topic=true
+notification.topic.user=admin
+notification.topic.password=admin
+notification.topic.connection.url=tcp://{{activemq_host}}:61616?wireFormat.maxInactivityDuration=0
+notification.topic.alerts.name=driver_alert_notifications
+notification.topic.events.name=driver_infraction_events
+notification.all.events.notification.topic=true
+notification.all.events.notification.topic.name=driver_events
+
+# Kafka Spout Settings
+kafka.zookeeper.host.port={{kafka_broker_host}}:2181
+kafka.topic=truck_events
+kafka.zkRoot=
+kafka.consumer.group.id=group1
+
+#parallelism settings
+spout.thread.count=5
+bolt.thread.count=1
+
+#storm topology settings
+storm.trucker.topology.workers=4
+
+#hdfs bolt settings
+hdfs.path=/truck-events-v4
+hdfs.url=hdfs://{{namenode_host}}:{{namenode_port}}
+hdfs.file.prefix=truckEvents
+hdfsbolt.thread.count=4
+hdfs.file.rotation.time.minutes=5
+
+#hbase bolt settings
+hbase.persist.all.events=false
+
+#hive settings
+hive.metastore.url=thrift://{{hive_metastore_host}}:{{hive_metastore_port}}
+hive.staging.table.name=truck_events_text_partition
+hive.database.name=default
+
+#prediction bolt settings
+#possible values for prediction.engine are jpmml and mllib
+prediction.engine=jpmml
+prediction.topic.events.name=prediction_events
+prediction.topic=true
+
+drools.topic.events.name=drools_events
+
+#storm supervisor servers - comma delimited list
+supervisors={{supervisor_hosts}}    
+    
+    </value>
+  </property>
+  
+        
+</configuration>  

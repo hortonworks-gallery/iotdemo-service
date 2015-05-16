@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+  <property>
+    <name>ambari_username</name>
+    <value>admin</value>
+    <description>Ambari admin username</description>
+  </property> 
+
+  <property>
+    <name>ambari_password</name>
+    <value>admin</value>
+    <description>Ambari admin password</description>
+    <property-type>PASSWORD</property-type>
+  </property> 
+  
+  <property>
+    <name>ambari_port</name>
+    <value>8080</value>
+    <description>Ambari port</description>
+  </property>   
+        
+ <property>
+    <name>content</name>
+    <description>This is the jinja template for user-env.sh file</description>
+    <value>
+
+# Ambari configuration
+host='{{ambari_server_host}}:{{ambari_port}}'
+user='{{ambari_username}}'
+pass='{{ambari_password}}'
+
+#auto detect cluster name
+output=`curl -u $user:$pass -i -H 'X-Requested-By: ambari'  http://$host/api/v1/clusters`
+cluster=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
+
+    
+    </value>
+  </property>
+    
+</configuration>

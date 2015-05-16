@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration supports_final="true">
+
+
+  <property require-input="true">
+    <name>demo.install_dir</name>
+    <value>/root</value>
+    <description>Location to clone the demo git (required). E.g. /root</description>
+  </property> 
+  
+  <property require-input="true">
+    <name>demo.scripts_path</name>
+    <value>sedev/demo-artifacts/storm_demo_2.2/storm_demo</value>
+    <description>Path to demo scripts dir within the git</description>
+  </property>
+    
+  <property require-input="true">
+    <name>demo.port</name>
+    <value>8081</value>
+    <description>Port to run webapp on</description>
+    <final>true</final>
+  </property> 
+  
+  <property require-input="true">
+    <name>demo.git_username</name>
+    <value></value>
+    <description>Github username</description>
+  </property> 
+  
+  <property require-input="true">
+    <name>demo.git_password</name>
+    <value></value>
+    <property-type>PASSWORD</property-type>
+    <description>Github password</description>
+  </property> 
+      
+  <!-- <property require-input="false">
+    <name>demo.start_script</name>
+    <value>/root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/rundemo.sh via-ambari</value>
+    <description>Script to run while starting demo (optional)</description>
+  </property> 
+
+  <property>
+    <name>demo.start_cmd</name>
+    <value>cd /root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/storm-demo-webapp; /root/maven/bin/mvn jetty:run -Djetty.port=8081</value>
+    <description>Command to launch demo daemon that Ambari will monitor. This will be executed after start_script (required)</description>
+  </property> 
+
+
+
+  <property>
+    <name>demo.stop_script</name>
+    <value>/root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/setup/bin/stop_demo.sh</value>
+    <description>Script to stop demo (required)</description>
+  </property>   -->
+
+  <property>
+    <name>demo.log</name>
+    <value>/var/log/iotdemo.log</value>
+    <description>Log file (required)</description>
+  </property> 
+    
+</configuration>
+
