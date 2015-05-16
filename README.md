@@ -137,4 +137,9 @@ rm -rf /root/sedev
 - Open the webapp at http://sandbox.hortonworks.com:8081
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
+![Image](../master/screenshots/demo.png?raw=true)
+
+- Check Storm UI for metrics
+
+![Image](../master/screenshots/storm.png?raw=true)
 
