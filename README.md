@@ -60,6 +60,15 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 ```
 
+- Ensure that root and storm users can create/access HBASE tables. If Ranger is installed (e.g if you running on sandbox) you can login to Ranger UI to check this:
+  - Login to Ranger ui at http://sandbox.hortonworks.com:6080 (admin/admin)
+  - Open the HBase policy page (http://sandbox.hortonworks.com:6080/index.html#!/hbase/3/policy/8). and ensure that groups "root" and "hadoop" have access. If not, add them. Click "Save" to refresh the policy.
+  - Ensure root has authority to create tables. You can do this by SSH as root and trying to create a test table:
+```
+hbase shell
+create 't1', 'f1', 'f2', 'f3'
+```
+
 - To deploy the IOTDEMO stack, run below
 ```
 cd /var/lib/ambari-server/resources/stacks/HDP/2.2/services
