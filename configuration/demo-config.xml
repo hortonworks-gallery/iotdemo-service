@@ -26,7 +26,7 @@
   <property require-input="true">
     <name>demo.git_username</name>
     <value></value>
-    <description>Github username</description>
+    <description>Github username. Do NOT enter your email address</description>
   </property> 
   
   <property require-input="true">
