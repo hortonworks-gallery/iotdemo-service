@@ -93,7 +93,7 @@ class Master(Script):
     Execute('/opt/activemq/latest/bin/activemq start xbean:file:/opt/activemq/latest/conf/activemq.xml >> '+params.stack_log)
     nimbus_host = str(params.master_configs['nimbus_hosts'][0])
             
-    Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host ' + nimbus_host + ' >> '+params.stack_log)
+    Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
     webapp_dir=os.path.join(params.scripts_dir,'storm-demo-webapp')
     start_cmd='cd ' + webapp_dir + '; '+params.install_dir+'/maven/bin/mvn jetty:run -Djetty.port=' + params.port + ' ; '      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
