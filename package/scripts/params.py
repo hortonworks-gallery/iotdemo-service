@@ -38,7 +38,10 @@ hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['h
 supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
 hbase_master_host = str(master_configs['hbase_master_hosts'][0])
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
-kafka_port = str(config['configurations']['kafka-broker']['port'])
+if 'port' in config['configurations']['kafka-broker']:
+  kafka_port = str(config['configurations']['kafka-broker']['port'])
+else:
+  kafka_port = get_port_from_url(config['configurations']['kafka-broker']['listeners'])
 activemq_host = kafka_broker_host
   
 list_of_configs = config['configurations']
