@@ -19,8 +19,6 @@ class Master(Script):
     
     Execute('echo list of config dump: ' + str(', '.join(params.list_of_configs)))    
     Execute('echo master config dump: ' + str(', '.join(params.master_configs)))
-
-      
     
     Execute('echo ambari host: ' + params.ambari_server_host) 
     Execute('echo namenode host: ' + params.namenode_host)    
@@ -31,7 +29,14 @@ class Master(Script):
     Execute('echo kafka host: ' + params.kafka_broker_host)    
     Execute('echo activemq host: ' + params.activemq_host)    
 
-  
+    Execute('echo kafka-broker dump: ' + str(', '.join(params.config['configurations']['kafka-broker'])))  
+    Execute('echo demo port: ' + params.port)
+    Execute('echo ambari port: ' + params.ambari_port)
+    Execute('echo namenode port: ' + params.namenode_port)
+    Execute('echo hive MS port: ' + params.hive_metastore_port)
+    Execute('echo kafka port: ' + params.kafka_port)
+
+          
     #pull code
     Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
     Execute ('export GIT_USER="'+params.git_username+'" ; export GIT_PASS="'+params.git_password+'"; cd ' + params.install_dir +'; git clone https://$GIT_USER:$GIT_PASS@github.com/hortonworks/sedev >> '+params.stack_log)

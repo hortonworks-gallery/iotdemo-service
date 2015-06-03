@@ -25,7 +25,7 @@ scripts_dir = os.path.join(install_dir, scripts_path)
 user_env = config['configurations']['user-env']['content']
 ambari_username = config['configurations']['user-env']['ambari_username']
 ambari_password = config['configurations']['user-env']['ambari_password']
-ambari_port = config['configurations']['user-env']['ambari_port']
+ambari_port = str(config['configurations']['user-env']['ambari_port'])
 
 #read cluster info - these values will be replaced added to demo-env.xml at runtime
 master_configs = config['clusterHostInfo']
@@ -38,7 +38,7 @@ hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['h
 supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
 hbase_master_host = str(master_configs['hbase_master_hosts'][0])
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
-kafka_port = config['configurations']['kafka-broker']['port']
+kafka_port = str(config['configurations']['kafka-broker']['port'])
 activemq_host = kafka_broker_host
   
 list_of_configs = config['configurations']
