@@ -29,7 +29,7 @@ class Master(Script):
     Execute('echo kafka host: ' + params.kafka_broker_host)    
     Execute('echo activemq host: ' + params.activemq_host)    
 
-    Execute('echo kafka-broker dump: ' + str(', '.join(params.config['configurations']['kafka-broker'])))  
+    #Execute('echo kafka-broker dump: ' + str(', '.join(params.config['configurations']['kafka-broker'])))  
     Execute('echo demo port: ' + params.port)
     Execute('echo ambari port: ' + params.ambari_port)
     Execute('echo namenode port: ' + params.namenode_port)
