@@ -14,7 +14,9 @@ Pre-reqs:
   - HBase and Storm must be available on the cluster and started. 
   - Falcon must be stopped before installing this service.
 
-
+Previous versions:
+  - For 2.2 version of the steps see [here](https://github.com/abajwa-hw/iotdemo-service/blob/master/README-22.md)
+  
 ##### Setup steps
 
 - Download HDP 2.3 sandbox VM image (Sandbox_HDP_2.3_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
