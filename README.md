@@ -224,7 +224,7 @@ rm -rf /root/sedev
 - Change the query filter to search for writes/puts:
 ![Image](../master/screenshots/iot-rangeraudit-hbase-put-1.png?raw=true)
 
-- Now open Hive view and query the tweets table:
+- Now open Hive view and query the truck_events_text_partition table:
 ![Image](../master/screenshots/iot-hive-query.png?raw=true)
 
 - On the Ranger audits dashboard, query for Hive audits:
