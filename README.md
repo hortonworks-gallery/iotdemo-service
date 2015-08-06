@@ -20,7 +20,7 @@ Previous versions:
 ##### Setup steps
 
 - Download HDP 2.3 sandbox VM image (Sandbox_HDP_2.3_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to 8GB or more
+- Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to at least 8GB (preferably more) and at least 4cpus allocated.
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
@@ -32,7 +32,8 @@ ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
 
-- **Make sure Storm, HBase, Kafka, Hive are up and Falcon is down** and all these services are out of maintenance mode. You can run below from Ambari server as a shortcut
+- **Make sure Storm, HBase, Kafka, Hive are up and Falcon is down** and all these services are out of maintenance mode. You can SSH into Ambari server node and run the below as a shortcut.
+  - Before proceeding, you may want to wait a few minutes to ensure they stay up reliably or the demo setup may fail. If they do not, you may need to increase the memory/cpus allocated to the VM.
 
 ```
 #Ambari password
