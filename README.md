@@ -20,7 +20,7 @@ Previous versions:
 ##### Setup steps
 
 - Download HDP 2.3 sandbox VM image (Sandbox_HDP_2.3_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to at least 10GB (preferably more) and at least 4cpus allocated.
+- Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to at least 8GB (preferably 10GB) RAM and at least 4cpus allocated.
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
