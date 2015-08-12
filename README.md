@@ -240,6 +240,27 @@ rm -rf /root/sedev
   - Navigate to the monitoring and prediction webapps
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
+```
+#public hostname or IP of host where IOT Demo service was deployed
+public_hostname=sroberts-iot.aa.anondns.net
+
+git clone https://github.com/abajwa-hw/iframe-view.git
+sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml	
+sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml	
+sed -i "s#sandbox.hortonworks.com:6080#$public_hostname:8081/storm-demo-web-app#g" iframe-view/src/main/resources/index.html	
+sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml	
+sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml	
+mv iframe-view iotdemo-view
+cd iotdemo-view
+mvn clean package
+
+#Now copy the zeppelin view jar from `/root/iotdemo-view/target/iotdemo-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
+cp /root/iotdemo-view/target/iotdemo-view-1.0-SNAPSHOT.jar /var/lib/ambari-server/resources/views/
+
+#Then restart Ambari server
+service ambari-server restart
+```
+
 ![Image](../master/screenshots/iot-predictionapp.png?raw=true)
 
 - Check Storm view for metrics
