@@ -29,7 +29,6 @@ Previous versions:
 - Connect to the VM via SSH (password hadoop) and restart Ambari server
 ```
 ssh root@sandbox.hortonworks.com
-/root/start_ambari.sh
 ```
 
 - **Make sure Storm, HBase, Kafka, Hive are up and Falcon is down** and all these services are out of maintenance mode. You can SSH into Ambari server node and run the below as a shortcut.
