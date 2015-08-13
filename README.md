@@ -74,6 +74,7 @@ hbase shell
 create 't1', 'f1', 'f2', 'f3'
 ```
 
+- (Optional): Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
 
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard.
 
@@ -270,9 +271,18 @@ service ambari-server restart
 ![Image](../master/screenshots/storm.png?raw=true)
 
 
+#### Visualize events using Zeppelin
+
+- If installed, open Zeppelin via view or http://sandbox.hortonworks.com:9995
+
+- Open the "IoT Data Analysis" notebook
+
+![Image](../master/screenshots/zeppelin-iot-notebook.png?raw=true)
+
+
 #### Access Ranger audits dashboard
 
-- Open the Ranger Audits dashboard at http://sandbox.hortonworks.com:6083/banana
+- If installed, open the Ranger Audits dashboard at http://sandbox.hortonworks.com:6083/banana
 
 - By default you will see a visualization of HBase reads/gets:
 ![Image](../master/screenshots/iot-rangeraudit-hbase-get-1.png?raw=true)
