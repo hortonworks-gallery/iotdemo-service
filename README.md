@@ -276,7 +276,7 @@ service ambari-server restart
 - If installed, open Zeppelin via view or http://sandbox.hortonworks.com:9995
 
 - Open the "IoT Data Analysis" notebook and execute the cells one by one to:
-  - answer business users questions
+  - answer business users questions (e.g. does fatigue cause violations? etc)
   - build a regression model to predict violations
 
 ![Image](../master/screenshots/zeppelin-iot-notebook.png?raw=true)
