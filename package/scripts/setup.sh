@@ -1,5 +1,7 @@
 #!/bin/bash
 INSTALL_DIR=$1
+HOSTNAME=$2
+PORT=$3
 
 #AMBARI_HOST=`hostname -f`
 #AMBARI_PORT=8080
@@ -72,3 +74,15 @@ source ~/.bashrc
 cd storm-demo-webapp
 cp -R routes /etc/storm_demo
 #$INSTALL_DIR/maven/bin/mvn -DskipTests clean package
+
+cd /root
+git clone https://github.com/abajwa-hw/iframe-view.git
+sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml   
+sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml    
+sed -i "s#sandbox.hortonworks.com:6080#$HOSTNAME:$PORT/storm-demo-web-app#g" iframe-view/src/main/resources/index.html    
+sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml   
+sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml    
+mv iframe-view iotdemo-view
+cd iotdemo-view
+mvn clean package
+

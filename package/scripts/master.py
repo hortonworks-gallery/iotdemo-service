@@ -47,7 +47,13 @@ class Master(Script):
     # run setup script
     install_script = os.path.join(service_scriptsdir,'setup.sh')
     Execute ('chmod +x ' + install_script)
-    Execute(install_script + ' "'+ params.install_dir + '" >> ' + params.stack_log)
+    Execute(install_script + ' "'+ params.install_dir + '" ' + params.public_host + ' ' + params.port + ' >> ' + params.stack_log)
+    
+    #if iotdemo installed on ambari server, copy view jar into ambari views dir
+    if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
+      Execute('echo "Copying iodemo view jar to ambari views dir"')      
+      Execute('/bin/cp -f /root/iotdemo-view/target/*.jar /var/lib/ambari-server/resources/views')
+    
 
   def configure(self, env):
     import params
@@ -63,6 +69,8 @@ class Master(Script):
   def stop(self, env):
     import params  
     import status_params
+    import time
+        
     env.set_params(status_params)
     self.configure(env)
     
@@ -81,6 +89,8 @@ class Master(Script):
     #kill topology
     Execute('storm kill truck-event-processor')
     
+    #wait for topology to come down
+    time.sleep(30)
           
   def start(self, env):
     import params

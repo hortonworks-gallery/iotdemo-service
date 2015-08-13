@@ -18,6 +18,16 @@ stack_log = config['configurations']['demo-config']['demo.log']
 git_username = config['configurations']['demo-config']['demo.git_username']
 git_password = config['configurations']['demo-config']['demo.git_password']
 port = str(config['configurations']['demo-config']['demo.port'])
+public_host = config['configurations']['demo-config']['demo.host_publicname']
+
+master_configs = config['clusterHostInfo']
+ambari_host = str(master_configs['ambari_server_host'][0])
+internal_host = str(master_configs['iotdemo_master_hosts'][0])
+
+#if user did not specify public hostname of demo node, proceed with internal name instead
+if public_host.strip() == '': 
+  public_host = internal_host
+  
 
 scripts_dir = os.path.join(install_dir, scripts_path)
 

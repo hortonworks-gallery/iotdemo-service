@@ -65,15 +65,6 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 ```
 
-- Ensure that root and storm users can create/access HBASE tables. If Ranger is installed (e.g if you running on sandbox) you can login to Ranger UI to check this:
-  - Login to Ranger ui at http://sandbox.hortonworks.com:6080 (admin/admin)
-  - Open the HBase policy page (http://sandbox.hortonworks.com:6080/index.html#!/hbase/3/policy/8). and ensure that groups "root" and "hadoop" have access. If not, add them. Click "Save" to refresh the policy.
-  - Ensure root has authority to create tables. You can do this by SSH as root and trying to create a test table:
-```
-hbase shell
-create 't1', 'f1', 'f2', 'f3'
-```
-
 - (Optional): Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
 
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard.
@@ -168,8 +159,13 @@ On bottom left -> Actions -> Add service -> check IOTDEMO server -> Next -> Next
 
 Things to remember while configuring the service
   - The service currently requires that it is installed on the Ambari server node and that Kafka and Zookeeper and also running on the same node.
-  - Under "Advanced demo-config", you need to enter your github credentials to allow the service to access the IoT demo artifacts
-  - Under "Advanced user-config", you need to update your ambari user/password/port configuration (if not using default)
+  - Under "Advanced demo-config"
+    - enter your github credentials to allow the service to access the IoT demo artifacts
+    - enter public name/IP of IoTDemo node: This is used to setup the Ambari view. Set this to the public host/IP of IoTDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of IoTDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IoTDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
+
+  - Under "Advanced user-config":
+    - enter your ambari user/password/port configuration (if not using default). These wil be used to check the required services are up
+    
   - The IoT demo configs are available under "Advanced demo-env", but do not require updating as all required configs will be auto-populated:
     - Ambari host
     - Name node host/port
@@ -186,7 +182,6 @@ Things to remember while configuring the service
 
 - On successful deployment you will see the IOTDEMO service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/started-service.png?raw=true)
-
 
 - You can see the parameters you configured under 'Configs' tab
 ![Image](../master/screenshots/started-config.png?raw=true)
@@ -232,35 +227,29 @@ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/iotdemo*
 rm -rf /root/sedev
     ```
 
+#### Intall the view
+
+- If iotdemo service was *not* deployed on same node as Ambari server:
+  - Transfer the compiled view jar from /root/iotdemo-view/target/*.jar on the iotdemo node to /var/lib/ambari-server/resources/views on ambari server node
+  - Follow steps below to stop IotDemo service, restart ambari, start IoTDemo service:
+
+- Otherwise, if iotdemo service was deployed on same node as Ambari server:
+  - Stop the IoTDemo service from Ambari
+  - Restart ambari
+```
+#sandbox
+service ambari restart
+#non sandbox
+service ambari-server restart
+```  
+  - Start IotDemo service
 
 #### Access webapp
 
-- Open the webapp at http://sandbox.hortonworks.com:8081/storm-demo-web-app/
+- Open the webapp via Ambari view or at http://sandbox.hortonworks.com:8081/storm-demo-web-app/
   - Login
   - Generate <50 events
   - Navigate to the monitoring and prediction webapps
-
-- Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
-```
-#public hostname or IP of host where IOT Demo service was deployed
-public_hostname=sroberts-iot.aa.anondns.net
-
-git clone https://github.com/abajwa-hw/iframe-view.git
-sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml	
-sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml	
-sed -i "s#sandbox.hortonworks.com:6080#$public_hostname:8081/storm-demo-web-app#g" iframe-view/src/main/resources/index.html	
-sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml	
-sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml	
-mv iframe-view iotdemo-view
-cd iotdemo-view
-mvn clean package
-
-#Now copy the zeppelin view jar from `/root/iotdemo-view/target/iotdemo-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
-cp /root/iotdemo-view/target/iotdemo-view-1.0-SNAPSHOT.jar /var/lib/ambari-server/resources/views/
-
-#Then restart Ambari server
-service ambari-server restart
-```
 
 ![Image](../master/screenshots/iot-predictionapp.png?raw=true)
 
