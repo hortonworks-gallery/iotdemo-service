@@ -273,13 +273,15 @@ service ambari-server restart
 
 #### Visualize events using Zeppelin
 
-- If installed, open Zeppelin via view or http://sandbox.hortonworks.com:9995
+- If installed, open Zeppelin via the Ambari view or at http://sandbox.hortonworks.com:9995
 
 - Open the "IoT Data Analysis" notebook and execute the cells one by one to:
   - answer business users questions (e.g. does fatigue cause violations? etc)
+  ![Image](../master/screenshots/zeppelin-iot-notebook.png?raw=true)
+  
   - build a regression model to predict violations
+  ![Image](../master/screenshots/zeppelin-iot-model.png?raw=true)
 
-![Image](../master/screenshots/zeppelin-iot-notebook.png?raw=true)
 
 
 #### Access Ranger audits dashboard
