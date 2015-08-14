@@ -66,7 +66,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 - (Optional): Setup YARN queue for Spark using the steps [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
 
-- (Optional): Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
+- Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
@@ -77,13 +77,17 @@ service ambari restart
 #on non-sandbox
 service ambari-server restart
 ```
-
+- (Optional): Setup Ranger using steps here:
+  - Setup MySQL pre-requisites using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root)
+  - Setup Ranger using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install--configure-ranger-using-ambari). You can ignore the LDAP specific configs
+  
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard using HDP search (Solr 5.2)
 ```
 cd
 wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/setup_solr_banana.sh
 chmod +x setup_solr_banana.sh
 
+#change <arguments> below
 ./setup_solr_banana.sh <arguments>
 ```
     - argument options:
