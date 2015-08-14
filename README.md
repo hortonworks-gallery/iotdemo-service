@@ -66,17 +66,6 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 - (Optional): Setup YARN queue for Spark using the steps [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
 
-- Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
-```
-VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
-
-#on sandbox
-service ambari restart
-
-#on non-sandbox
-service ambari-server restart
-```
   
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard using HDP search (Solr 5.2)
 ```
@@ -126,10 +115,14 @@ XAAUDIT.SOLR.SOLR_URL=http://sandbox.hortonworks.com:6083/solr/ranger_audits
 
 - Now retart HBase and Hive to register the plugins.
 
-- To deploy the IOTDEMO stack, run below
+- Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: 
+
+
+- To deploy the IOTDEMO service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 sudo git clone https://github.com/abajwa-hw/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
+sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 
 #on sandbox
 sudo service ambari restart
@@ -139,7 +132,7 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> check IOTDEMO server -> Next -> Next -> Configure service -> Next -> Deploy
+On bottom left -> Actions -> Add service -> check 'IoT Demo' and 'Zeppelin' -> Next -> Next -> Configure service -> Next -> Deploy
 ![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
@@ -147,7 +140,8 @@ Things to remember while configuring the service
   - Under "Advanced demo-config"
     - enter your github credentials to allow the service to access the IoT demo artifacts
     - enter public name/IP of IoTDemo node: This is used to setup the Ambari view. Set this to the public host/IP of IoTDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of IoTDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IoTDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-
+      - you should use the same value for publicname property in Zeppelin config as well
+      
   - Under "Advanced user-config":
     - enter your ambari user/password/port configuration (if not using default). These wil be used to check the required services are up
     
@@ -191,26 +185,6 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop $SERVICE via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
 ```
 
-
-- To remove the IOTDEMO service: 
-  - Stop the service via Ambari
-  - Delete the service
-  
-    ```
-export PASSWORD=admin
-export AMBARI_HOST=localhost
-
-output=`curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari'  http://$AMBARI_HOST:8080/api/v1/clusters`
-CLUSTER=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
-    
-curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/IOTDEMO
-    ```
-  - Remove artifacts 
-  
-    ```
-rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/iotdemo*
-rm -rf /root/sedev
-    ```
 
 #### Intall the view
 
@@ -301,4 +275,30 @@ service ambari-server restart
 
 - Re-enable the global allow policies.
 
+
+#### Remove the service
+
+- To remove the IOTDEMO service: 
+  - Stop the service via Ambari
+  - Delete the service
+  
+    ```
+export PASSWORD=admin
+export AMBARI_HOST=localhost
+
+output=`curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari'  http://$AMBARI_HOST:8080/api/v1/clusters`
+CLUSTER=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
+    
+curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/IOTDEMO
+    ```
+  - Remove artifacts 
+  
+    ```
+rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/iotdemo*
+rm -rf /root/sedev
+rm -rf /root/iot*
+rm -rf /var/lib/ambari-server/resources/views/iot*
+
+service ambari-server restart
+    ```
 
