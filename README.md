@@ -65,6 +65,16 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 ```
 
 - (Optional): Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
+```
+VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
+sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
+
+#on sandbox
+service ambari restart
+
+#on non-sandbox
+service ambari-server restart
+```
 
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard.
 
