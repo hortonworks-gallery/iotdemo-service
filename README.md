@@ -64,6 +64,8 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 ```
 
+- (Optional): Setup YARN queue for Spark using the steps [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
+
 - (Optional): Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: https://github.com/hortonworks-gallery/ambari-zeppelin-service
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
@@ -281,10 +283,19 @@ service ambari-server restart
   ![Image](../master/screenshots/zeppelin-iot-model.png?raw=true)
 
 
+- If you setup the 'spark' queue earlier, verify that Zeppelin submitted application to this queue. See [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration) for screenshots
+
+- If Ranger is installed, you can also use it to secure Spark by setting authorization policies and getting audit reports. See sample steps/screenshots to (setup Ranger's YARN plugin)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger] and (setup YARN queue and Ranger policy on an Ambari installed HDP 2.3 cluster)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger].
+
+### HDP Search
+
+- If installed, open HDP Search (Solr 5.2) at http://sandbox.hortonworks.com:6083/solr
+
+- select the ranger_audits core and select the Query option to search through the HBase audit events
 
 #### Access Ranger audits dashboard
 
-- If installed, open the Ranger Audits dashboard at http://sandbox.hortonworks.com:6083/banana
+- If installed, open the Silk Ranger Audits dashboard at http://sandbox.hortonworks.com:6083/banana
 
 - By default you will see a visualization of HBase reads/gets:
 ![Image](../master/screenshots/iot-rangeraudit-hbase-get-1.png?raw=true)
