@@ -77,9 +77,6 @@ service ambari restart
 #on non-sandbox
 service ambari-server restart
 ```
-- (Optional): Setup Ranger using steps here:
-  - Setup MySQL pre-requisites using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root)
-  - Setup Ranger using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install--configure-ranger-using-ambari). You can ignore the LDAP specific configs
   
 - (Optional): Setup Solr and Banana and 'Ranger Audits' dashboard using HDP search (Solr 5.2)
 ```
@@ -98,9 +95,14 @@ chmod +x setup_solr_banana.sh
     - Solr UI should be available at http://(your hostname):6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits 
     - An Empty Banana dashboard should be available at http://(your hostname):6083/banana e.g. http://sandbox.hortonworks.com:6083/banana. 
 
+- (Optional): Setup Ranger using steps here:
+  - Setup MySQL pre-requisites using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root)
+  - Setup Ranger using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install--configure-ranger-using-ambari). You can ignore the LDAP specific configs
+
   
 - (Optional): setup HBase Ranger plugin to audit to Solr
 
+  - On 2.3 Sandbox:
 ```
 cd /usr/hdp/2.*/ranger-hbase-plugin/       
 vi /usr/hdp/2.*/ranger-hbase-plugin/install.properties
@@ -111,6 +113,8 @@ XAAUDIT.SOLR.SOLR_URL=http://sandbox.hortonworks.com:6083/solr/ranger_audits
 ```
 
 - (Optional): setup Hive Ranger plugin to audit to Solr
+
+  - On 2.3 Sandbox:
 ```
 cd /usr/hdp/2.*/ranger-hive-plugin/       
 vi /usr/hdp/2.*/ranger-hive-plugin/install.properties
