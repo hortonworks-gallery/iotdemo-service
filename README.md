@@ -115,10 +115,7 @@ XAAUDIT.SOLR.SOLR_URL=http://sandbox.hortonworks.com:6083/solr/ranger_audits
 
 - Now retart HBase and Hive to register the plugins.
 
-- Setup Zeppelin to visualize/analyze violations events generated. Follow setup instructions here: 
-
-
-- To deploy the IOTDEMO service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
+- Deploy the IoTDemo service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 sudo git clone https://github.com/abajwa-hw/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
@@ -132,7 +129,7 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> check 'IoT Demo' and 'Zeppelin' -> Next -> Next -> Configure service -> Next -> Deploy
+On bottom left -> Actions -> Add service -> **check both 'IoT Demo' and 'Zeppelin'** -> Next -> Next -> Configure service -> Next -> Deploy
 ![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
@@ -243,7 +240,7 @@ service ambari-server restart
 
 #### Access Ranger audits dashboard
 
-- If installed, open the Silk Ranger Audits dashboard at http://sandbox.hortonworks.com:6083/banana
+- If installed, open the Silk Ranger Audits dashboard via Ambari view or http://sandbox.hortonworks.com:6083/banana
 
 - By default you will see a visualization of HBase reads/gets:
 ![Image](../master/screenshots/iot-rangeraudit-hbase-get-1.png?raw=true)
@@ -275,6 +272,20 @@ service ambari-server restart
 
 - Re-enable the global allow policies.
 
+
+#### Troubleshooting
+
+- Components going down? Increase VM memory/cores and restart
+
+- Storm Nimus is not coming up? try running below script to clean old data
+```
+/root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/setup/bin/cleanupstormdirs.sh
+```
+
+- Other issues? Try resetting demo and restarting
+```
+/root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/setup/bin/cleanup.sh
+```
 
 #### Remove the service
 
