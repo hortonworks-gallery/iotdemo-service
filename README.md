@@ -236,11 +236,14 @@ service ambari-server restart
 
 - If Ranger is installed, you can also use it to secure Spark by setting authorization policies and getting audit reports. See sample steps/screenshots to (setup Ranger's YARN plugin)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger] and (setup YARN queue and Ranger policy on an Ambari installed HDP 2.3 cluster)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger].
 
-### HDP Search
+#### HDP Search
 
 - If installed, open HDP Search (Solr 5.2) at http://sandbox.hortonworks.com:6083/solr
 
 - select the ranger_audits core and select the Query option to search through the HBase audit events
+
+
+## Authorization/Audit via Ranger
 
 #### Access Ranger audits dashboard
 
