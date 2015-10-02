@@ -39,7 +39,9 @@ class Master(Script):
           
     #pull code
     Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
-    Execute ('export GIT_USER="'+params.git_username+'" ; export GIT_PASS="'+params.git_password+'"; cd ' + params.install_dir +'; git clone https://$GIT_USER:$GIT_PASS@github.com/hortonworks/sedev >> '+params.stack_log)
+    Execute ('echo "machine github.com login '+params.git_username+' password '+params.git_password+'" > /root/.netrc')
+    Execute ('git clone https://github.com/hortonworks/sedev >> '+params.stack_log)
+    #Execute ('export GIT_USER="'+params.git_username+'" ; export GIT_PASS="'+params.git_password+'"; cd ' + params.install_dir +'; git clone https://$GIT_USER:$GIT_PASS@github.com/hortonworks/sedev >> '+params.stack_log)
 
     #update configs
     self.configure(env)
@@ -54,7 +56,8 @@ class Master(Script):
       Execute('echo "Copying iodemo view jar to ambari views dir"')      
       Execute('/bin/cp -f /root/iotdemo-view/target/*.jar /var/lib/ambari-server/resources/views')
     
-
+    Execute('rm -f /root/.netrc')
+    
   def configure(self, env):
     import params
     import status_params    
