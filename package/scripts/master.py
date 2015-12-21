@@ -49,7 +49,7 @@ class Master(Script):
     # run setup script
     install_script = os.path.join(service_scriptsdir,'setup.sh')
     Execute ('chmod +x ' + install_script)
-    Execute(install_script + ' "'+ params.install_dir + '" ' + params.public_host + ' ' + params.port + ' >> ' + params.stack_log)
+    Execute(install_script + ' "'+ params.install_dir + '" "' + params.public_host + '" "' + params.port + '" >> ' + params.stack_log)
     
     #if iotdemo installed on ambari server, copy view jar into ambari views dir
     if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
