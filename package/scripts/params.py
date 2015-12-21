@@ -55,3 +55,5 @@ else:
 activemq_host = kafka_broker_host
   
 list_of_configs = config['configurations']
+
+jdk64_home=config['hostLevelParams']['java_home']

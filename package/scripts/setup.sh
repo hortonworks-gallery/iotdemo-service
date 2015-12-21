@@ -2,14 +2,13 @@
 INSTALL_DIR=$1
 HOSTNAME=$2
 PORT=$3
+JAVA_HOME=$4
 
 #AMBARI_HOST=`hostname -f`
 #AMBARI_PORT=8080
 #AMBARI_USER=admin
 #AMBARI_PASS=admin
 #AMBARI_CLUSTER=iotdemo
-
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
 cd $INSTALL_DIR/sedev 
 
