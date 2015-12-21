@@ -1,8 +1,8 @@
 #!/bin/bash
-INSTALL_DIR=$1
-HOSTNAME=$2
-PORT=$3
-JAVA_HOME=$4
+export INSTALL_DIR=$1
+export HOSTNAME=$2
+export PORT=$3
+export JAVA_HOME=$4
 
 #AMBARI_HOST=`hostname -f`
 #AMBARI_PORT=8080
@@ -83,5 +83,5 @@ sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml
 sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml    
 mv iframe-view iotdemo-view
 cd iotdemo-view
-mvn clean package
+$INSTALL_DIR/maven/bin/mvn clean package
 
