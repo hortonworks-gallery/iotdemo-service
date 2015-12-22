@@ -52,7 +52,9 @@ if 'port' in config['configurations']['kafka-broker']:
   kafka_port = str(config['configurations']['kafka-broker']['port'])
 else:
   kafka_port = get_port_from_url(config['configurations']['kafka-broker']['listeners'])
-activemq_host = kafka_broker_host
+
+#activemq_host = kafka_broker_host
+activemq_host = internal_host
   
 list_of_configs = config['configurations']
 
