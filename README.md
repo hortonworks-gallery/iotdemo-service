@@ -284,9 +284,16 @@ service ambari-server restart
 
 - Components going down? Increase VM memory/cores and restart
 
-- Storm Nimus is not coming up? try running below script to clean old data
+- Storm Nimus is not coming up? 
+  - or getting error `java.lang.RuntimeException: Could not find leader nimbus from seed hosts [sandbox.hortonworks.com]. Did you specify a valid list of nimbus hosts for config nimbus.seeds`
+
+  - Solution: Stop storm and run below script to clean old data before starting Storm back up
 ```
 /root/sedev/demo-artifacts/storm_demo_2.2/storm_demo/setup/bin/cleanupstormdirs.sh
+
+/usr/hdp/current/zookeeper-client/bin/zkCli.sh
+rmr /storm	
+quit
 ```
 
 - Other issues? Try resetting demo and restarting
