@@ -74,6 +74,7 @@ cd storm-demo-webapp
 cp -R routes /etc/storm_demo
 #$INSTALL_DIR/maven/bin/mvn -DskipTests clean package
 
+echo "Starting view compile..."
 cd /root
 git clone https://github.com/abajwa-hw/iframe-view.git
 sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml   
@@ -83,5 +84,6 @@ sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml
 sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml    
 mv iframe-view iotdemo-view
 cd iotdemo-view
+echo "Starting mvn build. JAVA_HOME is $JAVA_HOME "
 $INSTALL_DIR/maven/bin/mvn clean package
-
+echo "View compile complete"
