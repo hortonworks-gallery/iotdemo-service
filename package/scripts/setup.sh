@@ -10,6 +10,8 @@ export JAVA_HOME=$4
 #AMBARI_PASS=admin
 #AMBARI_CLUSTER=iotdemo
 
+echo "JAVA_HOME is $JAVA_HOME"
+
 cd $INSTALL_DIR/sedev 
 
 #remove uneeded artifacts
@@ -66,9 +68,14 @@ fi
 #	exit 1
 #fi
 
+echo "Starting installation. JAVA_HOME is $JAVA_HOME"
 #start the installation
 ./installdemo.sh
 source ~/.bashrc
+
+echo "After sourcing bashrc. JAVA_HOME is $JAVA_HOME"
+export JAVA_HOME=$4
+echo "Resetting JAVA_HOME. JAVA_HOME is $JAVA_HOME"
 
 cd storm-demo-webapp
 cp -R routes /etc/storm_demo
