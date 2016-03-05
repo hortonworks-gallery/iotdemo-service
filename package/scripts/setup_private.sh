@@ -12,8 +12,14 @@ export JAVA_HOME=$4
 
 echo "JAVA_HOME is $JAVA_HOME"
 
+cd $INSTALL_DIR/sedev 
 
-cd $INSTALL_DIR/iot-truck-streaming
+#remove uneeded artifacts
+rm -rf .git/ datascience/ phoenix_demo_db/ poc-artifacts/ se-cloud/ slider_setup/ coe/ oslaunch/ pmbench/ sedemo/ windows_hdp_installer/ hadoop-mini-clusters/ cloudlaunch/
+cd demo-artifacts
+rm -rf document_crawler/ opentsdb_demo/ solr_apache_access_logs/ solr_hbase_sparse_data_demo/ storm_demo/
+
+cd storm_demo_2.2/storm_demo
 source setup/bin/ambari_util.sh
 
 #sed -i "s/host='sandbox.hortonworks.com:8080'/host='$AMBARI_HOST:$AMBARI_PORT'/g" user-env.sh
@@ -77,7 +83,6 @@ cp -R routes /etc/storm_demo
 
 echo "Starting view compile..."
 cd /root
-rm -rf iframe-view
 git clone https://github.com/abajwa-hw/iframe-view.git
 sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml   
 sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml    

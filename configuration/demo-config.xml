@@ -10,11 +10,11 @@
     <description>Location to clone the demo git (required). E.g. /root</description>
   </property> 
   
-  <property require-input="true">
+  <!-- <property require-input="true">
     <name>demo.scripts_path</name>
     <value>sedev/demo-artifacts/storm_demo_2.2/storm_demo</value>
     <description>Path to demo scripts dir within the git</description>
-  </property>
+  </property> -->
     
   <property require-input="true">
     <name>demo.port</name>
@@ -22,18 +22,25 @@
     <description>Port to run webapp on</description>
     <final>true</final>
   </property> 
+
+  <property require-input="true">
+    <name>demo.use_public_git</name>
+    <value>true</value>
+    <description>Whether to use public github repo or private</description>
+  </property> 
   
+    
   <property require-input="true">
     <name>demo.git_username</name>
-    <value></value>
-    <description>Github username. Do NOT enter your email address</description>
+    <value> </value>
+    <description>(Optional) Github username. Do NOT enter your email address. Only needed if use_public_git was set to false</description>
   </property> 
   
   <property require-input="true">
     <name>demo.git_password</name>
-    <value></value>
+    <value> </value>
     <property-type>PASSWORD</property-type>
-    <description>Github password</description>
+    <description>(Optional) Github password. Only needed if use_public_git was set to false</description>
   </property> 
   
   <property>

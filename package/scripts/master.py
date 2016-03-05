@@ -10,9 +10,6 @@ class Master(Script):
     import params
 
     #debug info
-    # e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/iotdemo-service/package/scripts
-    service_scriptsdir = os.path.realpath(__file__).split('/scripts')[0] + '/scripts/'
-    Execute ('echo ambari service scrpts dir is: ' +  service_scriptsdir)
     
     #e.g /root/sedev/demo-artifacts/storm_demo_2.2/storm_demo     
     Execute('echo cloned scripts dir is: ' + params.scripts_dir) 
@@ -36,25 +33,19 @@ class Master(Script):
     Execute('echo hive MS port: ' + params.hive_metastore_port)
     Execute('echo kafka port: ' + params.kafka_port)
 
-          
-    #pull code
-    Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
-    Execute ('echo "machine github.com login '+params.git_username+' password '+params.git_password+'" > /root/.netrc')
-    Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks/sedev >> '+params.stack_log)
-    #Execute ('export GIT_USER="'+params.git_username+'" ; export GIT_PASS="'+params.git_password+'"; cd ' + params.install_dir +'; git clone https://$GIT_USER:$GIT_PASS@github.com/hortonworks/sedev >> '+params.stack_log)
+    if params.use_public_git:
+      Execute ('rm -rf ' + os.path.join(params.install_dir,'iot-truck-streaming') , ignore_failures=True)
+      Execute ('cd ' + params.install_dir +'; git clone https://github.com/DhruvKumar/iot-truck-streaming >> '+params.stack_log)    
+    else:
+      #pull code
+      Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
+      Execute ('echo "machine github.com login '+params.git_username+' password '+params.git_password+'" > /root/.netrc')
+      Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks/sedev >> '+params.stack_log)
+      #Execute ('export GIT_USER="'+params.git_username+'" ; export GIT_PASS="'+params.git_password+'"; cd ' + params.install_dir +'; git clone https://$GIT_USER:$GIT_PASS@github.com/hortonworks/sedev >> '+params.stack_log)
 
     #update configs
     self.configure(env)
     
-    # run setup script
-    install_script = os.path.join(service_scriptsdir,'setup.sh')
-    Execute ('chmod +x ' + install_script)
-    Execute(install_script + ' "'+ params.install_dir + '" "' + params.public_host + '" "' + params.port + '" "' + params.jdk64_home + '" >> ' + params.stack_log)
-    
-    #if iotdemo installed on ambari server, copy view jar into ambari views dir
-    if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
-      Execute('echo "Copying iodemo view jar to ambari views dir"')      
-      Execute('/bin/cp -f /root/iotdemo-view/target/*.jar /var/lib/ambari-server/resources/views')
     
     Execute('rm -f /root/.netrc')
     
@@ -103,6 +94,21 @@ class Master(Script):
     if not os.path.exists(status_params.stack_piddir):
       os.makedirs(status_params.stack_piddir)
 
+    if not os.path.exists(params.scripts_dir + '/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar'):
+      # first time run
+      if params.use_public_git:    
+        install_script = os.path.join(params.service_scriptsdir,'setup.sh')
+      else:
+        install_script = os.path.join(params.service_scriptsdir,'setup_private.sh')      
+      Execute ('chmod +x ' + install_script)
+      Execute(install_script + ' "'+ params.install_dir + '" "' + params.public_host + '" "' + params.port + '" "' + params.jdk64_home + '" >> ' + params.stack_log)
+    
+      #if iotdemo installed on ambari server, copy view jar into ambari views dir
+      if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
+        Execute('echo "Copying iodemo view jar to ambari views dir"')      
+        Execute('/bin/cp -f /root/iotdemo-view/target/*.jar /var/lib/ambari-server/resources/views')
+    
+    
     nimbus_host = str(params.master_configs['nimbus_hosts'][0])
     
     #start active mq

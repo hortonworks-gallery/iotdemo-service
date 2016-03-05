@@ -11,18 +11,27 @@ def get_port_from_url(address):
 # server configurations
 config = Script.get_config()
 
+# e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/iotdemo-service/package/scripts
+service_scriptsdir = os.path.realpath(__file__).split('/scripts')[0] + '/scripts/'
+
 install_dir = config['configurations']['demo-config']['demo.install_dir']
-scripts_path = config['configurations']['demo-config']['demo.scripts_path']
 install_script = config['configurations']['demo-config']['demo.install_script']
 stack_log = config['configurations']['demo-config']['demo.log']
 git_username = config['configurations']['demo-config']['demo.git_username']
 git_password = config['configurations']['demo-config']['demo.git_password']
 port = str(config['configurations']['demo-config']['demo.port'])
 public_host = config['configurations']['demo-config']['demo.host_publicname']
+use_public_git = config['configurations']['demo-config']['demo.use_public_git']
 
 master_configs = config['clusterHostInfo']
 ambari_host = str(master_configs['ambari_server_host'][0])
 internal_host = str(master_configs['iotdemo_master_hosts'][0])
+
+#scripts_path = config['configurations']['demo-config']['demo.scripts_path']
+if use_public_git:
+  scripts_path = 'iot-truck-streaming'
+else:
+  scripts_path = 'sedev/demo-artifacts/storm_demo_2.2/storm_demo'    
 
 #if user did not specify public hostname of demo node, proceed with internal name instead
 if public_host.strip() == '': 
