@@ -211,7 +211,7 @@ setup/bin/cleanup.sh
   - Stop the service via Ambari
   - Delete the service
   
-    ```
+```
 export SERVICE=IOTDEMO
 export PASSWORD=admin
 export AMBARI_HOST=localhost
@@ -224,11 +224,11 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_
 #if above errors out, run below first to fully stop the service
 #curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop $SERVICE via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
 
-    ```
+```
     
   - Remove artifacts 
   
-    ```
+```
 rm -rf /root/sedev
 rm -rf /root/iot*
 rm -rf /root/scala
@@ -239,5 +239,5 @@ VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]
 rm -rf /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO
 
 service ambari-server restart
-    ```
+```
 
