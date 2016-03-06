@@ -12,6 +12,11 @@ Pre-reqs:
   - HBase and Storm must be available on the cluster and started. 
   - Falcon must be stopped before installing this service.
 
+Limitations:
+  - This is not an officially supported service and *is not meant to be deployed in production systems*. It is only meant for testing demo/purposes
+  - It does not support Ambari/HDP upgrade process and will cause upgrade problems if not removed prior to upgrade
+
+
 Previous versions:
   - For 2.3 version of the steps see [here](https://github.com/abajwa-hw/iotdemo-service/blob/master/README-23.md)
   - For 2.2 version of the steps see [here](https://github.com/abajwa-hw/iotdemo-service/blob/master/README-22.md)
