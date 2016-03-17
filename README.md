@@ -18,8 +18,8 @@ Limitations:
 
 
 Previous versions:
-  - For 2.3 version of the steps see [here](https://github.com/abajwa-hw/iotdemo-service/blob/master/README-23.md)
-  - For 2.2 version of the steps see [here](https://github.com/abajwa-hw/iotdemo-service/blob/master/README-22.md)
+  - For 2.3 version of the steps see [here](https://github.com/hortonworks-gallery/iotdemo-service/blob/master/README-23.md)
+  - For 2.2 version of the steps see [here](https://github.com/hortonworks-gallery/iotdemo-service/blob/master/README-22.md)
   
 ##### Setup steps
 
@@ -71,7 +71,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 - Deploy the IoTDemo service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-sudo git clone https://github.com/abajwa-hw/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
+sudo git clone https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
 sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 
 #on sandbox
