@@ -68,6 +68,8 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 ```
 
+- Wait for all the operations to start/stop services complete
+
 - Deploy the IoTDemo service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
