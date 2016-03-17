@@ -35,7 +35,7 @@ class Master(Script):
 
     if params.use_public_git:
       Execute ('rm -rf ' + os.path.join(params.install_dir,'iot-truck-streaming') , ignore_failures=True)
-      Execute ('cd ' + params.install_dir +'; git clone https://github.com/DhruvKumar/iot-truck-streaming >> '+params.stack_log)    
+      Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks-gallery/iot-truck-streaming >> '+params.stack_log)    
     else:
       #pull code
       Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
