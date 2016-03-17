@@ -86,7 +86,7 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> **check both 'IoT Demo' and 'Zeppelin'** -> Next -> Next -> Configure service -> Next -> Deploy
+On bottom left -> Actions -> Add service ->  'IoT Demo' (also check 'Zeppelin' if not already installed) -> Next -> Next -> Configure service -> Next -> Deploy
 ![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
