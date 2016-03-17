@@ -86,17 +86,21 @@ On bottom left -> Actions -> Add service -> **check both 'IoT Demo' and 'Zeppeli
 ![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
+  
   - The service currently requires that it is installed on the Ambari server node and that Kafka and Zookeeper and also running on the same node.
     - If kafka is on a different node, the demo still could work (not tested) if you manually create the topics ahead of time 
     ```
     /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --zookeeper $ZK_HOST:2181 --replication-factor 1 --partitions 2 --topic truck_events
     ```
+
+  - **Under "Advanced user-config": update the Ambari admin user/password/port**
+    - These will be used to check the required services are up
+    - Needed on HDP 2.4 sandbox because the default admin password has been changed.  
+
   - Under "Advanced demo-config". 
     - enter public name/IP of IoTDemo node: This is used to setup the Ambari view. Set this to the public host/IP of IoTDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of IoTDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IoTDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
       - you should use the same value for publicname property in Zeppelin config as well
       
-  - Under "Advanced user-config":
-    - enter your ambari user/password/port configuration (if not using default). These wil be used to check the required services are up
     
   - The IoT demo configs are available under "Advanced demo-env", but do not require updating as all required configs will be auto-populated:
     - Ambari host
