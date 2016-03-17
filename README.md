@@ -72,7 +72,9 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 sudo git clone https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
-sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
+
+#(Optional) Zeppelin already comes installed on HDP 2.4 sandbox
+#sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 
 #on sandbox
 sudo service ambari restart
