@@ -121,6 +121,12 @@ Things to remember while configuring the service
 
 ![Image](../master/screenshots/config2.png?raw=true)
       
+- Once you click Deploy to start the install, it may take up to 20-30min because it is running a maven build under the covers
+  - You can track progress by tailing the log file
+  ```
+  tail -f /var/log/iotdemo.log
+  ```
+
 
 - On successful deployment you will see the IOTDEMO service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/started-service.png?raw=true)
