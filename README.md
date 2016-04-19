@@ -196,7 +196,7 @@ service ambari-server restart
 
 - If you setup the 'spark' queue earlier, verify that Zeppelin submitted application to this queue. See [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration) for screenshots
 
-- If Ranger is installed, you can also use it to secure Spark by setting authorization policies and getting audit reports. See sample steps/screenshots to (setup Ranger's YARN plugin)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger] and (setup YARN queue and Ranger policy on an Ambari installed HDP 2.3 cluster)[https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger].
+- If Ranger is installed, you can also use it to secure Spark by setting authorization policies and getting audit reports. See sample steps/screenshots to [setup Ranger's YARN plugin](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger) and [setup YARN queue and Ranger policy on an Ambari installed HDP 2.3 cluster](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger).
 
 
 #### Troubleshooting
