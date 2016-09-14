@@ -4,7 +4,7 @@
 <configuration supports_final="true">
 
 
-  <property require-input="true">
+  <property>
     <name>demo.install_dir</name>
     <value>/root</value>
     <description>Location to clone the demo git (required). E.g. /root</description>
@@ -16,27 +16,27 @@
     <description>Path to demo scripts dir within the git</description>
   </property> -->
     
-  <property require-input="true">
+  <property>
     <name>demo.port</name>
     <value>8081</value>
     <description>Port to run webapp on</description>
     <final>true</final>
   </property> 
 
-  <property require-input="true">
+  <property>
     <name>demo.use_public_git</name>
     <value>true</value>
     <description>Whether to use public github repo or private</description>
   </property> 
   
     
-  <property require-input="true">
+  <property>
     <name>demo.git_username</name>
     <value> </value>
     <description>(Optional) Github username. Do NOT enter your email address. Only needed if use_public_git was set to false</description>
   </property> 
   
-  <property require-input="true">
+  <property>
     <name>demo.git_password</name>
     <value> </value>
     <property-type>PASSWORD</property-type>
