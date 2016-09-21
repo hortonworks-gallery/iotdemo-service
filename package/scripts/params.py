@@ -11,6 +11,8 @@ def get_port_from_url(address):
 # server configurations
 config = Script.get_config()
 
+stack_version_unformatted = config['hostLevelParams']['stack_version']
+
 # e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/iotdemo-service/package/scripts
 service_scriptsdir = os.path.realpath(__file__).split('/scripts')[0] + '/scripts/'
 

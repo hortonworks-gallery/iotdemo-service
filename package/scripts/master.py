@@ -32,10 +32,14 @@ class Master(Script):
     Execute('echo namenode port: ' + params.namenode_port)
     Execute('echo hive MS port: ' + params.hive_metastore_port)
     Execute('echo kafka port: ' + params.kafka_port)
+    Execute('echo stack_version: ' + params.stack_version_unformatted)
 
     if params.use_public_git:
       Execute ('rm -rf ' + os.path.join(params.install_dir,'iot-truck-streaming') , ignore_failures=True)
-      Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks-gallery/iot-truck-streaming >> '+params.stack_log)    
+      if params.stack_version_unformatted == '2.5':
+        Execute ('cd ' + params.install_dir +'; git clone -b  hdp25experiment https://github.com/james94/iot-truck-streaming >> '+params.stack_log)
+      else:
+        Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks-gallery/iot-truck-streaming >> '+params.stack_log)    
     else:
       #pull code
       Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
