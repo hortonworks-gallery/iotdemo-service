@@ -1,0 +1,33 @@
+{
+  "name": "default",
+  "description": "default quick links configuration",
+  "configuration": {
+    "protocol": {
+      "type":"https",
+      "checks":[
+        {
+          "property":"demo.use_public_git",
+          "desired":"false",
+          "site":"demo-config"
+        }
+      ]
+    },
+    "links": [
+      {
+        "name": "iotdemo_ui",
+        "label": "IotDemo UI",
+        "requires_user_name": "false",
+        "component_name": "IOTDEMO_MASTER",
+        "url":"%@://%@:%@/storm-demo-web-app/index.html",
+        "port":{
+          "http_property": "demo.port",
+          "http_default_port": "8081",
+          "https_property": "demo.port",
+          "https_default_port": "8081",
+          "regex": "^(\\d+)$",
+          "site": "demo-config"
+        }
+      }
+    ]
+  }
+}
