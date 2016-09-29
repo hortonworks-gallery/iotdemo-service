@@ -9,7 +9,8 @@ Videos on the demo itself available here:
 
 Pre-reqs: 
   - The service currently requires that it is installed on the Ambari server node and that Kafka and Zookeeper and also running on the same node.
-  - HBase and Storm must be available on the cluster and started. 
+  - HBase (*including Phoenix*), Kafka and Storm must be available on the cluster and started. 
+    - Note: if installing this on non-sandbox cluster, *make sure Phoenix is enabled* (under Ambari > Hbase > Config). By default, it is not enabled in vanilla installations.
   - Falcon must be stopped before installing this service.
 
 Limitations:
