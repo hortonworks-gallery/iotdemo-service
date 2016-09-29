@@ -27,7 +27,7 @@ activemq.server.url=tcp://{{activemq_host}}:61616
 #######################
 activemq.server={{activemq_host}}
 activemq.port=61613
-hbase.zookeeper.server={{hbase_master_host}}
+hbase.zookeeper.server={{hbase_zookeeper}}
 
 ######################################
 #### STORM TOPOLOGY CONFIGURATION ####

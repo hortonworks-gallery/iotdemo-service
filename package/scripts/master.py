@@ -22,7 +22,7 @@ class Master(Script):
     Execute('echo nimbus host: ' + params.nimbus_host)
     Execute('echo hive metastore host: ' + params.hive_metastore_host)
     Execute('echo supervisor hosts: ' + params.supervisor_hosts)    
-    Execute('echo hbase master host: ' + params.hbase_master_host)   
+    Execute('echo hbase zookeeper: ' + params.hbase_zookeeper)   
     Execute('echo kafka host: ' + params.kafka_broker_host)    
     Execute('echo activemq host: ' + params.activemq_host)    
 
