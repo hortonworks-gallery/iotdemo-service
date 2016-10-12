@@ -38,7 +38,8 @@ class Master(Script):
       Execute ('rm -rf ' + os.path.join(params.install_dir,'iot-truck-streaming') , ignore_failures=True)
       if params.stack_version_unformatted == '2.5':
         #Execute ('cd ' + params.install_dir +'; git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming >> '+params.stack_log)
-        Execute ('cd ' + params.install_dir +'; git clone -b demo https://github.com/abajwa-hw/iot-truck-streaming >> '+params.stack_log)
+        #Execute ('cd ' + params.install_dir +'; git clone -b demo https://github.com/abajwa-hw/iot-truck-streaming >> '+params.stack_log)
+	Execute ('cd ' + params.install_dir +'; git clone -b nologs https://github.com/abajwa-hw/iot-truck-streaming >> '+params.stack_log)
       else:
         Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks-gallery/iot-truck-streaming >> '+params.stack_log)    
     else:
