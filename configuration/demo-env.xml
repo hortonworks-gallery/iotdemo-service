@@ -88,10 +88,11 @@ trucking.solr.bolt.thread.count=4
 trucking.storm.topology.jar=/root/.m2/repository/hortonworks/hdp/refapp/trucking/trucking-storm-topology/5.0.0-SNAPSHOT/trucking-storm-topology-5.0.0-SNAPSHOT-shaded.jar
     
     </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>    
+    <on-ambari-upgrade add="true"/>      
   </property>
-  <value-attributes>
-    <type>content</type>
-  </value-attributes>    
-  <on-ambari-upgrade add="true"/>  
+
         
 </configuration>  

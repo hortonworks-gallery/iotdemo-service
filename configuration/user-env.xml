@@ -99,6 +99,10 @@ ecm.solr.core=rawdocs
 
     
     </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>    
+    <on-ambari-upgrade add="true"/>          
   </property>
     
 </configuration>
