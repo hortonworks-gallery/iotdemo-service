@@ -128,7 +128,7 @@ class Master(Script):
     #Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
     
     webapp_dir=os.path.join(format('{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal'))
-    start_cmd='cd ' + webapp_dir + ';  mvn jetty:run -X -Dservice.registry.config.location='+params.webapp_dir+'/src/main/resources/config/dev/registry -Dtrucking.activemq.host='+params.activemq_host+' -Djetty.port=' + params.port + ' ; '      
+    start_cmd='cd ' + webapp_dir + ';  mvn jetty:run -X -Dservice.registry.config.location='+webapp_dir+'/src/main/resources/config/dev/registry -Dtrucking.activemq.host='+params.activemq_host+' -Djetty.port=' + params.port + ' ; '      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
 	
 
