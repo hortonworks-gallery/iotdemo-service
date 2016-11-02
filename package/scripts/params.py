@@ -44,9 +44,8 @@ scripts_dir = os.path.join(install_dir, scripts_path)
 
 #read user-env.xml settings entered by user
 user_env = config['configurations']['user-env']['content']
-ambari_username = config['configurations']['user-env']['ambari_username']
-ambari_password = config['configurations']['user-env']['ambari_password']
-ambari_port = str(config['configurations']['user-env']['ambari_port'])
+
+welcome_env = config['configurations']['welcome-env']['content']
 
 #read cluster info - these values will be replaced added to demo-env.xml at runtime
 master_configs = config['clusterHostInfo']
@@ -57,7 +56,7 @@ nimbus_host = str(master_configs['nimbus_hosts'][0])
 hive_metastore_host = str(master_configs['hive_metastore_host'][0])
 hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']) #"9083"
 supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
-#hbase_master_host = str(master_configs['hbase_master_hosts'][0])
+nifi_host = str(master_configs['nifi_master_hosts'][0])
 hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
 if 'port' in config['configurations']['kafka-broker']:

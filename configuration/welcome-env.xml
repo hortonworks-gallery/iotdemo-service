@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+        
+ <property>
+    <name>content</name>
+    <description>This is the jinja template for welcome.html file</description>
+    <value>
+&lt;div class="jumbotron"&gt;
+  &lt;h2&gt;HDF 2.0 Product Management Demo Environment - Data In Motion Reference App&lt;/h2&gt;
+   &lt;p&gt; For the use case details, check out the &lt;a href="https://github.com/georgevetticaden/hdp/tree/master/reference-apps/iot-trucking-app"&gt; HDF 2.0 Data in Motion Reference App&lt;/a&gt; &lt;/p&gt;
+ 
+   &lt;p&gt;The below links show case the capabilities of the HDF 2.0 Platform &lt;/p&gt;
+  	    
+		&lt;table style="width: 1200px"  class="table table-striped table-bordered table-hover"&gt;
+	          &lt;thead&gt;
+	            &lt;tr&gt;
+	              &lt;th&gt;Link&lt;/th&gt;
+	              &lt;th&gt;Description&lt;/th&gt;
+	               
+	            &lt;/tr&gt;
+	          &lt;/thead&gt;
+
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a href="" ng-controller="ServiceRegistryCtrl" ng-click="deployStormTopology()"&gt; Deploy the Storm Topology &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;Deploys the Storm Topology to the Cluster&lt;/td&gt;
+	          &lt;/tr&gt;	 
+
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:8080/#/main/dashboard/metrics"&gt;Ambari for HDF 2.0&lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;The provisioning, management and montioring tool for the HDF 2.0 Platform&lt;/td&gt;
+	          &lt;/tr&gt;		           
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a href="http://{{nifi_host}}:9090/nifi/"&gt; Nifi Data Flow &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;The Nifi and Minifi flow that captures truck events from Telemetry Devices, parses, transforms and routes them to the Stream Proessing Cluster&lt;/td&gt;
+	          &lt;/tr&gt;	
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:8080/#/main/views/Storm_Monitoring/0.1.0/StormAdmin"&gt; Stream Processing Cluster &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;The Stream Processing cluster that performs joins, aggregrations over windows, splits and serves up insights to real-time app&lt;/td&gt;
+	          &lt;/tr&gt;	 	            
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a ng-href="#/monitorTrucks"&gt; Truck Monitoring Application &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;A Real-time Truck Monitoring application powered by the HDF Platform&lt;/td&gt;
+	          &lt;/tr&gt;	
+	         	                  
+  	    &lt;/table&gt;
+  	    
+  &lt;p&gt;The specific components in this architecture are the following:&lt;/p&gt;
+   		&lt;div style="padding-left: 30px" &gt;
+  		&lt;u1&gt;
+  			&lt;li&gt;&lt;b&gt;Minifi - &lt;/b&gt; Collect Events from the Edge. The edge here represents collecting events from the different sensors on the truck&lt;/li&gt;
+  			&lt;li&gt;&lt;b&gt;Nifi - &lt;/b&gt; Performs site to site data movement,  intelligent data routing, transformations, enrichment, and delivers the streams to the stream processing engine. 
+  			&lt;li&gt;&lt;b&gt;Kafka - &lt;/b&gt; Scalable Event Broker that acts as the distributed storage Substrate for the Stream Processing engine &lt;/li&gt;
+  			&lt;li&gt; &lt;b&gt;Storm - &lt;/b&gt;Streaming analytics engine used to build a stream application demonstrating joining streams, windoweed aggreation, fast real-tile model scoring, serving requests to Dashboard  &lt;/li&gt;
+  			&lt;li&gt; &lt;b&gt;HBase - &lt;/b&gt; Store the Time-Series Trucking Events for Fast Access&lt;/li&gt;
+  		&lt;/u1&gt;
+  		
+  		&lt;/div&gt;
+  	    &lt;/br&gt;
+  	    
+  	   
+  	    
+  	    &lt;p&gt;The below is end to end architecture of the reference application  &lt;/p&gt;
+  	    &lt;img  src="assets/horton/images/ref_append_to_end_architecture.png"
+  	    
+  	    &lt;/br&gt;
+  	    &lt;p&gt;The below is an end to end implementation of the reference application powered by HDF&lt;/p&gt;
+  	    &lt;img  src="assets/horton/images/end to end implementation.png"
+  	    
+  	   
+
+    
+   	
+&lt;/div&gt;    
+    </value>
+  </property>
+    
+</configuration>

@@ -35,12 +35,8 @@ class Master(Script):
     #Execute('echo stack_version: ' + params.stack_version_unformatted)
 
     if params.use_public_git:
-      Execute ('rm -rf ' + os.path.join(params.install_dir,'iot-truck-streaming') , ignore_failures=True)
-      if params.stack_version_unformatted == '2.5':
-        #Execute ('cd ' + params.install_dir +'; git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming >> '+params.stack_log)
-        Execute ('cd ' + params.install_dir +'; git clone -b demo https://github.com/abajwa-hw/iot-truck-streaming >> '+params.stack_log)
-      else:
-        Execute ('cd ' + params.install_dir +'; git clone https://github.com/hortonworks-gallery/iot-truck-streaming >> '+params.stack_log)    
+      Execute ('rm -rf ' + os.path.join(params.install_dir,'hdf') , ignore_failures=True)
+      Execute ('cd ' + params.install_dir +'; git clone https://github.com/sujithasankuhdp/hdp >> '+params.stack_log)
     else:
       #pull code
       Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
@@ -60,10 +56,13 @@ class Master(Script):
     env.set_params(params)
     
     content=InlineTemplate(status_params.demo_template_config)
-    File(format("{scripts_dir}/config.properties"), content=content, owner='root',group='root', mode=0666)
+    File(format("{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-storm-topology/src/main/resources/config/dev/registry/trucking-streaming-hdp-service-config.properties"), content=content, owner='root',group='root', mode=0666)
 
     ambari_content=InlineTemplate(params.user_env)
-    File(format("{scripts_dir}/user-env.sh"), content=ambari_content, owner='root',group='root', mode=0777)
+    File(format("{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal/src/main/resources/config/dev/registry/ref-app-hdp-service-config.properties"), content=ambari_content, owner='root',group='root', mode=0666)
+
+    welcome_content=InlineTemplate(params.welcome_env)
+    File(format("{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal/src/main/webappResources/views/welcome.html"), content=welcome_content, owner='root',group='root', mode=0666)
 
   def stop(self, env):
     import params  
@@ -95,18 +94,19 @@ class Master(Script):
     import params
     import status_params
     self.configure(env)
-
+    env.set_params(params)
+    
     if not os.path.exists(status_params.stack_piddir):
       os.makedirs(status_params.stack_piddir)
 
-    if not os.path.exists(params.scripts_dir + '/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar'):
+    if not os.path.exists('/root/.m2/repository/hortonworks/hdp/refapp/trucking/trucking-storm-topology/5.0.0-SNAPSHOT/trucking-storm-topology-5.0.0-SNAPSHOT-shaded.jar'):
       # first time run
       if params.use_public_git:    
-        install_script = os.path.join(params.service_scriptsdir,'setup.sh')
+        install_script = format('{service_scriptsdir}/setup.sh')
       else:
-        install_script = os.path.join(params.service_scriptsdir,'setup_private.sh')      
-      Execute ('chmod +x ' + install_script)
-      Execute(install_script + ' "'+ params.install_dir + '" "' + params.public_host + '" "' + params.port + '" "' + params.jdk64_home + '" >> ' + params.stack_log)
+        install_script = format('{service_scriptsdir}/setup_private.sh')      
+      Execute (format('chmod +x {install_script}'))
+      Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" >> {stack_log}')
     
       #if iotdemo installed on ambari server, copy view jar into ambari views dir
       if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
@@ -120,16 +120,17 @@ class Master(Script):
     Execute('/opt/activemq/latest/bin/activemq start xbean:file:/opt/activemq/latest/conf/activemq.xml >> '+params.stack_log)
 
     #if ranger found start it
-    Execute('if [ `ls /etc/init.d | grep ranger-admin | wc -l` ]; then service ranger-admin start; fi', ignore_failures=True)
+    #Execute('if [ `ls /etc/init.d | grep ranger-admin | wc -l` ]; then service ranger-admin start; fi', ignore_failures=True)
     
     #if ranger-solr found, start it
-    if os.path.exists('/opt/solr/ranger_audit_server/scripts/start_solr.sh'):
-      Execute('/opt/solr/ranger_audit_server/scripts/start_solr.sh', ignore_failures=True)            
+    #if os.path.exists('/opt/solr/ranger_audit_server/scripts/start_solr.sh'):
+    #  Execute('/opt/solr/ranger_audit_server/scripts/start_solr.sh', ignore_failures=True)            
       
     #start jetty app  
-    Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
-    webapp_dir=os.path.join(params.scripts_dir,'storm-demo-webapp')
-    start_cmd='cd ' + webapp_dir + '; '+params.install_dir+'/maven/bin/mvn jetty:run -Djetty.port=' + params.port + ' ; '      
+    #Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
+    
+    webapp_dir=os.path.join(format('{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal')
+    start_cmd='cd ' + webapp_dir + ';  mvn jetty:run -X -Dservice.registry.config.location='+params.webapp_dir+'/src/main/resources/config/dev/registry -Dtrucking.activemq.host='+params.activemq_host+' -Djetty.port=' + params.port + ' ; '      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
 	
 
