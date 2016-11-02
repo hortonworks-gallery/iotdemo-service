@@ -19,13 +19,14 @@ Limitations:
 
 
 Previous versions:
+  - For 2.4 version of the steps see [here](https://github.com/hortonworks-gallery/iotdemo-service/blob/master/README.md)
   - For 2.3 version of the steps see [here](https://github.com/hortonworks-gallery/iotdemo-service/blob/master/README-23.md)
   - For 2.2 version of the steps see [here](https://github.com/hortonworks-gallery/iotdemo-service/blob/master/README-22.md)
   
 ##### Setup steps
 
-- Download HDP 2.4 sandbox VM image (Hortonworks_sanbox_with_hdp_2_4_vmware.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Hortonworks_sanbox_with_hdp_2_4_vmware.ova into VMWare and set the VM memory size to at least 8GB (preferably 10GB+) RAM and at least 4cpus allocated.
+- Download HDP 2.5 sandbox VM image (HDP_2.5_vmware.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
+- Import HDP_2.5_vmware.ova into VMWare and set the VM memory size to at least 8GB (preferably 10GB+) RAM and at least 4cpus allocated.
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
@@ -74,9 +75,9 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 - Deploy the IoTDemo service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-sudo git clone https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO   
+sudo git clone -b hdp25 https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO25   
 
-#(Optional) Zeppelin already comes installed on HDP 2.4 sandbox
+#(Optional) Zeppelin already comes installed on HDP 2.5 sandbox
 #sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 
 #on sandbox
@@ -98,15 +99,10 @@ Things to remember while configuring the service
     /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --zookeeper $ZK_HOST:2181 --replication-factor 1 --partitions 2 --topic truck_events
     ```
 
-  - **Under "Advanced user-config": update the Ambari admin user/password/port**
-    - These will be used to check the required services are up
-    - Needed on HDP 2.4 sandbox because the default admin password has been changed.  
 
   - Under "Advanced demo-config". 
     - enter public name/IP of IoTDemo node: This is used to setup the Ambari view. Set this to the public host/IP of IoTDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of IoTDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IoTDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
       - you should use the same value for publicname property in Zeppelin config as well
-      
-  - Under "under "Advanced demo-env"
     - **You do NOT have to enter your github credentials anymore**. The code will be picked up from https://github.com/hortonworks-gallery/iot-truck-streaming
       
   - The IoT demo configs are available under "Advanced demo-env", but do not require updating as all required configs will be auto-populated:
