@@ -85,31 +85,34 @@ cp welcome.html welcome.html.orig
 sed -i "s|http://hdf.*\.com|http://$HOSTNAME|" welcome.html
 
 
-#install bower
+echo "Installing bower..."
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-web-portal
 bower install --allow-root
 
 
-#build hdp-app-utils 
+echo "building hdp-app-utils..."
 cd ${demo_root}/hdp/app-utils/hdp-app-utils 
 mvn clean install -DskipTests=true
 
 
-#Build iot-trucking-app
+echo "Building iot-trucking-app..."
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app 
 mvn clean install -DskipTests=true
 # With george's latest code, this step failing with: Failure to find com.hortonworks.registries:schema-registry-serdes:jar:0.1.0-SNAPSHOT
 # make sure pom for trucking-web-portal has org.ow2.asm dependencies
 
+echo "Building trucking-data-simulator assembly"
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
 mvn assembly:assembly
 
 
 #install latest storm view jar
-cd /var/lib/ambari-server/resources/views/
-rm -f storm-view-2.*.jar
-wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
-chmod 777 storm-view-0.1.0.0.jar
+if [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
+  cd /var/lib/ambari-server/resources/views/
+  rm -f storm-view-2.*.jar
+  wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
+  chmod 777 storm-view-0.1.0.0.jar
+fi
 
 #Instantiate Storm view
 source /root/ambari-bootstrap/extras/ambari_functions.sh
