@@ -106,7 +106,7 @@ class Master(Script):
       else:
         install_script = format('{service_scriptsdir}/setup_private.sh')      
       Execute (format('chmod +x {install_script}'))
-      Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" >> {stack_log}')
+      Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" >> {stack_log}'))
     
       #if iotdemo installed on ambari server, copy view jar into ambari views dir
       if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
@@ -129,7 +129,7 @@ class Master(Script):
     #start jetty app  
     #Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
     
-    webapp_dir=os.path.join(format('{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal')
+    webapp_dir=os.path.join(format('{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-web-portal'))
     start_cmd='cd ' + webapp_dir + ';  mvn jetty:run -X -Dservice.registry.config.location='+params.webapp_dir+'/src/main/resources/config/dev/registry -Dtrucking.activemq.host='+params.activemq_host+' -Djetty.port=' + params.port + ' ; '      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
 	
