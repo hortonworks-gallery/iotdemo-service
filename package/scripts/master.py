@@ -28,11 +28,9 @@ class Master(Script):
 
     #Execute('echo kafka-broker dump: ' + str(', '.join(params.config['configurations']['kafka-broker'])))  
     Execute('echo demo port: ' + params.port)
-    Execute('echo ambari port: ' + params.ambari_port)
     Execute('echo namenode port: ' + params.namenode_port)
     Execute('echo hive MS port: ' + params.hive_metastore_port)
     Execute('echo kafka port: ' + params.kafka_port)
-    #Execute('echo stack_version: ' + params.stack_version_unformatted)
 
     if params.use_public_git:
       Execute ('rm -rf ' + os.path.join(params.install_dir,'hdf') , ignore_failures=True)

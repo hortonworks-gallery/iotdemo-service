@@ -81,44 +81,9 @@ echo "create 'driver_events', {NAME=> 'allevents', VERSIONS=>3}" | hbase shell
 
 
 
-#update configs
-update_config () {
-  output=`curl -u admin:admin -i -H 'X-Requested-By: ambari'  http://localhost:8080/api/v1/clusters`
-  cluster_name=`echo $output | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p'`
-  export HOST=$(hostname -f)
-  
-
-  sed -i "s|\(ambari.cluster.name\)=.*|\1=${cluster_name}|" $1
-  sed -i "s|\(ambari.server.url\)=.*|\1=http://${HOST}:8080/|" $1
-  sed -i "s|\(hbase.zookeeper.host\)=.*|\1=${HOST}|" $1
-  sed -i "s|\(trucking.notification.topic.connection.url\)=.*|\1=tcp://${HOST}:61616|" $1
-  sed -i "s|\(trucking.activemq.host\)=.*|\1=${HOST}|" $1
-  sed -i "s|/Users/gvetticaden|${HOME}|" $1
-}
-
-cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-storm-topology/src/main/resources/config/dev/registry/
-cp trucking-streaming-hdp-service-config.properties trucking-streaming-hdp-service-config.properties.orig
-update_config trucking-streaming-hdp-service-config.properties
-
-cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-web-portal/src/main/resources/config/dev/registry/
-cp ref-app-hdp-service-config.properties ref-app-hdp-service-config.properties.orig
-update_config ref-app-hdp-service-config.properties
-
-#change links on trucking demo webapp home page
-#for sandbox, change to: sandbox.hortonworks.com
-#otherwise use public IP (required for cloud deployments)
-export public_ip=$(curl icanhazip.com)
-export hostname=$(hostname -f)
-
-if [ "${hostname}" = "sandbox.hortonworks.com" ]; then
-    export webui_host=${hostname}
-else
-    export webui_host=${public_ip}
-fi
-
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-web-portal/src/main/webappResources/views
 cp welcome.html welcome.html.orig
-sed -i "s|http://hdf.*\.com|http://${webui_host}|" welcome.html
+sed -i "s|http://hdf.*\.com|http://$HOSTNAME|" welcome.html
 
 
 #install bower
