@@ -30,7 +30,6 @@ fi
 cd ${demo_root}
 
 sudo yum -y groupinstall "Development Tools"
-sudo yum install -y wget git
 
 echo "setup Python..."
 wget http://www.python.org/ftp/python/3.3.2/Python-3.3.2.tar.bz2 -O /var/tmp/Python-3.3.2.tar.bz2

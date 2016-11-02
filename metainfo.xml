@@ -62,9 +62,19 @@
                    <package><name>wget</name></package>                                  
                    <package><name>zip</name></package>                                  
                    <package><name>tar</name></package>                                  
-                   <package><name>java-1.7.0-openjdk-devel</name></package>                                                                                                          
+                   <package><name>java-1.8.0-openjdk-devel</name></package>                                                                                                          
                 </packages>
               </osSpecific>
+              <osSpecific>
+                <osFamily>redhat7</osFamily>
+                <packages>
+                   <package><name>git</name></package>  
+                   <package><name>wget</name></package>                                  
+                   <package><name>zip</name></package>                                  
+                   <package><name>tar</name></package>                                  
+                   <package><name>java-1.8.0-openjdk-devel</name></package>                                                                                                          
+                </packages>
+              </osSpecific>              
             </osSpecifics> 
             
       		<requiredServices>
