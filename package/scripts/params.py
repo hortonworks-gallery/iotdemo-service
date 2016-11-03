@@ -16,13 +16,17 @@ stack_version_unformatted = config['hostLevelParams']['stack_version']
 # e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/iotdemo-service/package/scripts
 service_scriptsdir = os.path.realpath(__file__).split('/scripts')[0] + '/scripts/'
 
+#use_public_git = config['configurations']['demo-config']['demo.use_public_git']
+#git_username = config['configurations']['demo-config']['demo.git_username']
+#git_password = config['configurations']['demo-config']['demo.git_password']
+use_public_git = True
+git_username = ''
+git_password = ''
+
 install_dir = config['configurations']['demo-config']['demo.install_dir']
 install_script = config['configurations']['demo-config']['demo.install_script']
 stack_log = config['configurations']['demo-config']['demo.log']
-git_username = config['configurations']['demo-config']['demo.git_username']
-git_password = config['configurations']['demo-config']['demo.git_password']
 port = str(config['configurations']['demo-config']['demo.port'])
-use_public_git = config['configurations']['demo-config']['demo.use_public_git']
 mvn_home = config['configurations']['demo-config']['demo.mvn_home']
 num_events = str(config['configurations']['demo-config']['demo.num_events'])
 event_delay = str(config['configurations']['demo-config']['demo.event_delay'])

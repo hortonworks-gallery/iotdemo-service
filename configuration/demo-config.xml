@@ -23,7 +23,7 @@
     <final>true</final>
   </property> 
 
-  <property>
+  <!-- <property>
     <name>demo.use_public_git</name>
     <value>true</value>
     <description>Whether to use public github repo or private</description>
@@ -47,7 +47,7 @@
       <empty-value-valid>true</empty-value-valid>
     </value-attributes>        
     <description>(Optional) Github password. Only needed if use_public_git was set to false</description>
-  </property> 
+  </property> -->
   
   <property>
     <name>demo.log</name>
