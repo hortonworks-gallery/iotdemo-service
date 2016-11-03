@@ -51,6 +51,18 @@
                     <scriptType>PYTHON</scriptType>
                     <timeout>5000</timeout>
                   </commandScript>
+                  
+	              <customCommands>
+        	        <customCommand>
+              		    <name>GENERATE_EVENTS</name>
+                	    <commandScript>
+                  	    	<script>scripts/master.py</script>
+                  	    	<scriptType>PYTHON</scriptType>
+                  	    	<timeout>600</timeout>
+            		    </commandScript>
+                     </customCommand>
+          	      </customCommands>
+          	                        
                 </component>
             </components>
 
