@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 export demo_root=$1
 export HOSTNAME=$2
 export PORT=$3
