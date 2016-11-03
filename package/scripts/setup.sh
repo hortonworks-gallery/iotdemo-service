@@ -77,6 +77,10 @@ sudo npm install grunt-cli -g
 sudo npm install bower -g
 
 
+echo "Installing bower..."
+cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-web-portal
+bower install --allow-root
+
 cd ${demo_root}
 if [ ! -f /opt/activemq/latest/bin/activemq ]; then
   echo "Setup activemq..."
@@ -102,10 +106,6 @@ echo "create 'driver_dangerous_events_count', {NAME=> 'counters', VERSIONS=>3}" 
 echo "create 'driver_events', {NAME=> 'allevents', VERSIONS=>3}" | hbase shell
 
 
-
-echo "Installing bower..."
-cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-web-portal
-bower install --allow-root
 
 
 echo "building hdp-app-utils..."
