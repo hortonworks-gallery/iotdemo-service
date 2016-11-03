@@ -71,6 +71,13 @@
     <value>/usr/local</value>
     <description>Dir to install maven into. 'maven' subdir will be created under this location</description>
   </property> 
+
+  <property>
+    <name>demo.num_events</name>
+    <value>500</value>
+    <description>Number of events per batch to simulate for each driver</description>
+  </property> 
+    
     
     
 </configuration>

@@ -140,6 +140,12 @@ class Master(Script):
     env.set_params(status_params)  
     check_process_status(status_params.stack_pidfile)    
 
+  def generate_events(self, env):
+    import params
+    env.set_params(params)
+    Execute (format('{service_scriptsdir}/generate_events.sh "{install_dir}" "{num_events}" "{jdk64_home}" >> {stack_log}'))
+
+    
     
 if __name__ == "__main__":
   Master().execute()

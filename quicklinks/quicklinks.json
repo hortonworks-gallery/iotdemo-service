@@ -18,7 +18,7 @@
         "label": "IotDemo UI",
         "requires_user_name": "false",
         "component_name": "IOTDEMO_MASTER",
-        "url":"%@://%@:%@/storm-demo-web-app/index.html",
+        "url":"%@://%@:%@/iot-trucking-app",
         "port":{
           "http_property": "demo.port",
           "http_default_port": "8081",
