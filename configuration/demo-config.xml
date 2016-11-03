@@ -20,7 +20,6 @@
     <name>demo.port</name>
     <value>8081</value>
     <description>Port to run webapp on</description>
-    <final>true</final>
   </property> 
 
   <!-- <property>
