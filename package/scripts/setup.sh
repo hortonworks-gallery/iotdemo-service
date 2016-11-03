@@ -69,11 +69,11 @@ fi
 
 echo "Setup npm..."
 
-sudo yum install epel-release                       ## needed on Centos 7
+sudo yum install -y epel-release                     ## needed on Centos 7
 sudo yum install npm --enablerepo=epel -y
 curl -0 -L http://npmjs.org/install.sh | sudo sh    ## needed on Centos 7
 sudo npm install npm -g
-sudo npm install -g grunt-cli
+sudo npm install grunt-cli -g 
 sudo npm install bower -g
 
 
@@ -124,7 +124,7 @@ cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
 $MVN_HOME/maven/bin/mvn assembly:assembly
 
 
-#if running on Ambari node, install latest storm view jar (if not already installed)
+#if installing demo on Ambari node, install latest storm view jar (if not already installed)
 if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
   cd /var/lib/ambari-server/resources/views/
   rm -f storm-view-2.*.jar
@@ -132,11 +132,15 @@ if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-serv
   chmod 777 storm-view-0.1.0.0.jar
 fi
 
-#Instantiate Storm view
-source /root/ambari-bootstrap/extras/ambari_functions.sh
-ambari_configs
 
-read -r -d '' body <<EOF
+# if installing demo on Ambari node, deploy storm view
+# TODO: change storm.host to appropriate host
+if [ -d /var/lib/ambari-server/ ]; then
+  #Instantiate Storm view
+  source ${demo_root}/ambari-bootstrap/extras/ambari_functions.sh
+  ambari_configs
+
+  read -r -d '' body <<EOF
 {
   "ViewInstanceInfo": {
     "instance_name": "StormAdmin", "label": "Storm View", "description": "Storm View",
@@ -148,8 +152,10 @@ read -r -d '' body <<EOF
   }
 }
 EOF
-${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X DELETE
-echo "${body}" | ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X POST -d @-
+  ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X DELETE
+  echo "${body}" | ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X POST -d @-
+
+fi
 
 #need to do this outside Ambari
 #clear views work dir and restart Ambari
@@ -170,7 +176,7 @@ if [ ! -d "${demo_root}/iotdemo-view" ]; then
   git clone https://github.com/abajwa-hw/iframe-view.git
   sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml   
   sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml    
-  sed -i "s#sandbox.hortonworks.com:6080#$HOSTNAME:$PORT/storm-demo-web-app#g" iframe-view/src/main/resources/index.html    
+  sed -i "s#sandbox.hortonworks.com:6080#$HOSTNAME:$PORT/iot-trucking-app#g" iframe-view/src/main/resources/index.html    
   sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml   
   sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml    
   mv iframe-view iotdemo-view

@@ -78,6 +78,15 @@
     <description>Number of events per batch to simulate for each driver</description>
   </property> 
     
+
+  <property>
+    <name>demo.hbase_zookeeper</name>
+    <value>{{hbase_zookeeper}}</value>
+    <description>HBase Zookeeper host. Will be auto-detected if Hase is installed on this cluster. Otherwise, this should be manually changed</description>
+  </property> 
+      
+
+    
     
     
 </configuration>

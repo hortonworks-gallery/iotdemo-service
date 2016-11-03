@@ -53,11 +53,11 @@ welcome_env = config['configurations']['welcome-env']['content']
 #read cluster info - these values will be replaced added to demo-env.xml at runtime
 master_configs = config['clusterHostInfo']
 ambari_server_host = str(master_configs['ambari_server_host'][0])
-namenode_host =  str(master_configs['namenode_host'][0])
-namenode_port = get_port_from_url(config['configurations']['core-site']['fs.defaultFS']) #8020
+#namenode_host =  str(master_configs['namenode_host'][0])
+#namenode_port = get_port_from_url(config['configurations']['core-site']['fs.defaultFS']) #8020
 nimbus_host = str(master_configs['nimbus_hosts'][0])
-hive_metastore_host = str(master_configs['hive_metastore_host'][0])
-hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']) #"9083"
+#hive_metastore_host = str(master_configs['hive_metastore_host'][0])
+#hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']) #"9083"
 supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
 nifi_host = str(master_configs['nifi_master_hosts'][0])
 hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
