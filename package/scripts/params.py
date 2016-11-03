@@ -24,6 +24,7 @@ git_password = config['configurations']['demo-config']['demo.git_password']
 port = str(config['configurations']['demo-config']['demo.port'])
 public_host = config['configurations']['demo-config']['demo.host_publicname']
 use_public_git = config['configurations']['demo-config']['demo.use_public_git']
+mvn_home = config['configurations']['demo-config']['demo.mvn_home']
 
 master_configs = config['clusterHostInfo']
 ambari_host = str(master_configs['ambari_server_host'][0])
@@ -41,6 +42,7 @@ if public_host.strip() == '':
   
 
 scripts_dir = os.path.join(install_dir, scripts_path)
+webapp_dir = install_dir + '/hdp/reference-apps/iot-trucking-app/trucking-web-portal'
 
 #read user-env.xml settings entered by user
 user_env = config['configurations']['user-env']['content']

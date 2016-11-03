@@ -3,12 +3,14 @@ export demo_root=$1
 export HOSTNAME=$2
 export PORT=$3
 export JAVA_HOME=$4
+export MVN_HOME=$5
 
 #AMBARI_HOST=`hostname -f`
 #AMBARI_PORT=8080
 #AMBARI_USER=admin
 #AMBARI_PASS=admin
 #AMBARI_CLUSTER=iotdemo
+#MVN_HOME=/usr/local
 
 echo "JAVA_HOME is $JAVA_HOME"
 
@@ -47,13 +49,13 @@ else
   echo "Python 3 already installed"  
 fi
 
-if [ ! -f /usr/local/maven/bin/mvn ]; then
+if [ ! -f "$MVN_HOME/maven/bin/mvn" ]; then
   echo "Setup maven..."
   wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
-  sudo tar xzf apache-maven-3.0.5-bin.tar.gz -C /usr/local
-  cd /usr/local
+  sudo tar xzf apache-maven-3.0.5-bin.tar.gz -C $MVN_HOME
+  cd $MVN_HOME
   sudo ln -s apache-maven-3.0.5 maven
-  export M2_HOME=/usr/local/maven
+  export M2_HOME=$MVN_HOME/maven
   export PATH=${M2_HOME}/bin:${PATH}
   echo 'M2_HOME=/usr/local/maven' >> ~/.bashrc
   echo 'M2=$M2_HOME/bin' >> ~/.bashrc
@@ -101,18 +103,18 @@ bower install --allow-root
 
 echo "building hdp-app-utils..."
 cd ${demo_root}/hdp/app-utils/hdp-app-utils 
-mvn clean install -DskipTests=true
+$MVN_HOME/maven/bin/mvn clean install -DskipTests=true
 
 
 echo "Building iot-trucking-app..."
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app 
-mvn clean install -DskipTests=true
+$MVN_HOME/maven/bin/mvn clean install -DskipTests=true
 # With george's latest code, this step failing with: Failure to find com.hortonworks.registries:schema-registry-serdes:jar:0.1.0-SNAPSHOT
 # make sure pom for trucking-web-portal has org.ow2.asm dependencies
 
 echo "Building trucking-data-simulator assembly"
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
-mvn assembly:assembly
+$MVN_HOME/maven/bin/mvn assembly:assembly
 
 
 #install latest storm view jar
@@ -167,7 +169,7 @@ if [ ! -d "${demo_root}/iotdemo-view" ]; then
   mv iframe-view iotdemo-view
   cd iotdemo-view
   echo "Starting mvn build. JAVA_HOME is $JAVA_HOME "
-  mvn clean package
+  $MVN_HOME/maven/bin/mvn clean package
   echo "View compile complete"
 else
   echo "Iotdemo view already compiled"

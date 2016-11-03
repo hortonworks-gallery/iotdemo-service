@@ -7,7 +7,7 @@
   <property>
     <name>demo.install_dir</name>
     <value>/root</value>
-    <description>Location to clone the demo git (required). E.g. /root</description>
+    <description>Location to clone the demo git (required). 'hdp' subdir will be created under this location</description>
   </property> 
   
   <!-- <property require-input="true">
@@ -65,6 +65,13 @@
     <value>/var/log/iotdemo.log</value>
     <description>Log file (required)</description>
   </property> 
+    
+  <property>
+    <name>demo.mvn_home</name>
+    <value>/usr/local</value>
+    <description>Dir to install maven into. 'maven' subdir will be created under this location</description>
+  </property> 
+    
     
 </configuration>
 
