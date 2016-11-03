@@ -105,6 +105,9 @@ class Master(Script):
         install_script = format('{service_scriptsdir}/setup_private.sh')      
       Execute (format('chmod +x {install_script}'))
       Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" "{mvn_home}" >> {stack_log}'))
+      
+    else:      
+      Execute('echo Skipping mvn build as storm topoloy was found')    
     
       #if iotdemo installed on ambari server, copy view jar into ambari views dir
       if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
