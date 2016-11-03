@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x 
 export demo_root=$1
 export HOSTNAME=$2
 export PORT=$3
@@ -13,7 +14,7 @@ export MVN_HOME=$5
 #MVN_HOME=/usr/local
 
 echo "JAVA_HOME is $JAVA_HOME"
-
+echo "MVN_HOME is $MVN_HOME"
 
 
 #if Falcon is local and found to be running, kill it
@@ -45,10 +46,12 @@ if [ ! $ret ]; then
   sudo make install
   sudo ln -s /usr/local/bin/python3 /usr/bin/python3
   python3 --version
+  rm -rf ${demo_root}/Python-3.3.2
 else
   echo "Python 3 already installed"  
 fi
 
+cd ${demo_root}
 if [ ! -f "$MVN_HOME/maven/bin/mvn" ]; then
   echo "Setup maven..."
   wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
@@ -60,6 +63,7 @@ if [ ! -f "$MVN_HOME/maven/bin/mvn" ]; then
   echo 'M2_HOME=/usr/local/maven' >> ~/.bashrc
   echo 'M2=$M2_HOME/bin' >> ~/.bashrc
   echo 'PATH=$PATH:$M2' >> ~/.bashrc
+  rm -f apache-maven-3.0.5-bin.tar.gz
 else
   echo "Maven already installed"  
 fi
@@ -71,7 +75,7 @@ sudo npm install -g grunt-cli
 sudo npm install bower -g
 
 
-
+cd ${demo_root}
 if [ ! -f /opt/activemq/latest/bin/activemq ]; then
   echo "Setup activemq..."
   sudo mkdir /opt/activemq
@@ -79,6 +83,7 @@ if [ ! -f /opt/activemq/latest/bin/activemq ]; then
   sudo wget http://archive.apache.org/dist/activemq/apache-activemq/5.9.0/apache-activemq-5.9.0-bin.tar.gz
   sudo tar xvzf apache-activemq-*.tar.gz
   sudo ln -s apache-activemq-5.9.0 latest
+  rm -f apache-activemq-5.9.0-bin.tar.gz
 else
   echo "Activemq already installed"   
 fi
