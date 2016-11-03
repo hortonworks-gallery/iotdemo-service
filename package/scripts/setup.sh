@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x 
 export demo_root=$1
 export HOSTNAME=$2
 export PORT=$3
@@ -69,7 +68,10 @@ else
 fi
 
 echo "Setup npm..."
+
+sudo yum install epel-release                       ## needed on Centos 7
 sudo yum install npm --enablerepo=epel -y
+curl -0 -L http://npmjs.org/install.sh | sudo sh    ## needed on Centos 7
 sudo npm install npm -g
 sudo npm install -g grunt-cli
 sudo npm install bower -g
