@@ -103,7 +103,7 @@ class Master(Script):
         install_script = format('{service_scriptsdir}/setup.sh')
       else:
         install_script = format('{service_scriptsdir}/setup_private.sh')      
-      Execute (format('chmod +x {install_script}'))
+      Execute (format('chmod +x {service_scriptsdir}/*.sh'))
       Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" "{mvn_home}" >> {stack_log}'))
       
     else:      
