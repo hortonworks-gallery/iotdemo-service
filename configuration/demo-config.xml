@@ -50,17 +50,6 @@
   </property> 
   
   <property>
-    <name>demo.host_publicname</name>
-    <value></value>
-    <value-attributes>
-      <empty-value-valid>true</empty-value-valid>
-    </value-attributes>        
-    <description>This is used to setup the Ambari view for IoT Demo. Set this to the public host/IP of IotDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. 
-    If installing on cloud, set this to public name/IP of IotDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IotDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname</description>
-  </property>  
-      
-
-  <property>
     <name>demo.log</name>
     <value>/var/log/iotdemo.log</value>
     <description>Log file (required)</description>

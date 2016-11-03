@@ -22,7 +22,6 @@ stack_log = config['configurations']['demo-config']['demo.log']
 git_username = config['configurations']['demo-config']['demo.git_username']
 git_password = config['configurations']['demo-config']['demo.git_password']
 port = str(config['configurations']['demo-config']['demo.port'])
-public_host = config['configurations']['demo-config']['demo.host_publicname']
 use_public_git = config['configurations']['demo-config']['demo.use_public_git']
 mvn_home = config['configurations']['demo-config']['demo.mvn_home']
 num_events = str(config['configurations']['demo-config']['demo.num_events'])
@@ -30,6 +29,13 @@ num_events = str(config['configurations']['demo-config']['demo.num_events'])
 master_configs = config['clusterHostInfo']
 ambari_host = str(master_configs['ambari_server_host'][0])
 internal_host = str(master_configs['iotdemo_master_hosts'][0])
+public_host = config['public_hostname']
+
+#if public hostname not found, proceed with internal name instead
+if public_host.strip() == '': 
+  public_host = internal_host
+  
+cluster_name = config['clusterName']
 
 #scripts_path = config['configurations']['demo-config']['demo.scripts_path']
 if use_public_git:
@@ -37,10 +43,6 @@ if use_public_git:
 else:
   scripts_path = 'sedev/demo-artifacts/storm_demo_2.2/storm_demo'    
 
-#if user did not specify public hostname of demo node, proceed with internal name instead
-if public_host.strip() == '': 
-  public_host = internal_host
-  
 
 scripts_dir = os.path.join(install_dir, scripts_path)
 webapp_dir = install_dir + '/hdp/reference-apps/iot-trucking-app/trucking-web-portal'

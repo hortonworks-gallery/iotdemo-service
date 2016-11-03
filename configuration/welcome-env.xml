@@ -29,15 +29,15 @@
 	          &lt;/tr&gt;	 
 
 	          &lt;tr&gt;
-	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:8080/#/main/dashboard/metrics"&gt;Ambari for HDF 2.0&lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt; &lt;a href="http://{{public_host}}:8080/#/main/dashboard/metrics"&gt;Ambari for HDF 2.0&lt;/a&gt; &lt;/td&gt;
 	          	&lt;td&gt;The provisioning, management and montioring tool for the HDF 2.0 Platform&lt;/td&gt;
 	          &lt;/tr&gt;		           
 	          &lt;tr&gt;
-	          	&lt;td&gt; &lt;a href="http://{{nifi_host}}:9090/nifi/"&gt; Nifi Data Flow &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt; &lt;a href="http://{{public_host}}:9090/nifi/"&gt; Nifi Data Flow &lt;/a&gt; &lt;/td&gt;
 	          	&lt;td&gt;The Nifi and Minifi flow that captures truck events from Telemetry Devices, parses, transforms and routes them to the Stream Proessing Cluster&lt;/td&gt;
 	          &lt;/tr&gt;	
 	          &lt;tr&gt;
-	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:8080/#/main/views/Storm_Monitoring/0.1.0/StormAdmin"&gt; Stream Processing Cluster &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt; &lt;a href="http://{{public_host}}:8080/#/main/views/Storm_Monitoring/0.1.0/StormAdmin"&gt; Stream Processing Cluster &lt;/a&gt; &lt;/td&gt;
 	          	&lt;td&gt;The Stream Processing cluster that performs joins, aggregrations over windows, splits and serves up insights to real-time app&lt;/td&gt;
 	          &lt;/tr&gt;	 	            
 	          &lt;tr&gt;
@@ -45,7 +45,7 @@
 	          	&lt;td&gt;A Real-time Truck Monitoring application powered by the HDF Platform&lt;/td&gt;
 	          &lt;/tr&gt;	
 	          &lt;tr&gt;
-	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:9995/#/notebook/2AS5TY6AQ"&gt; Zeppelin notebook &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt; &lt;a href="http://{{public_host}}:9995/#/notebook/2AS5TY6AQ"&gt; Zeppelin notebook &lt;/a&gt; &lt;/td&gt;
 	          	&lt;td&gt;A web-based notebook that enables interactive data analytics on truck events&lt;/td&gt;
 	          &lt;/tr&gt;
 

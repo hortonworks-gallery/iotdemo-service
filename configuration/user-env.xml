@@ -9,7 +9,7 @@
     <description>This is the jinja template for ref-app-hdp-service-config.properties file</description>
     <value>
 # Properties Required to populate endpoints for Topology
-ambari.cluster.name=hdp
+ambari.cluster.name={{cluster_name}}
 ambari.server.url=http://{{ambari_host}}:8080/
 hbase.deployment.mode=STANDALONE
 hbase.slider.publisher.url=
