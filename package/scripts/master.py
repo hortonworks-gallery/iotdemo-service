@@ -145,7 +145,7 @@ class Master(Script):
   def generate_events(self, env):
     import params
     env.set_params(params)
-    Execute (format('{service_scriptsdir}/generate_events.sh "{install_dir}" "{num_events}" "{event_delay}" "{jdk64_home}" >> {stack_log}'))
+    Execute (format('{service_scriptsdir}/generate_events.sh "{install_dir}" "{num_events}" "{event_delay}" "{jdk64_home}"'))
 
     
     
