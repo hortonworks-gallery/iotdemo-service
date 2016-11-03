@@ -18,9 +18,9 @@ class Master(Script):
     Execute('echo master config dump: ' + str(', '.join(params.master_configs)))
     
     Execute('echo ambari host: ' + params.ambari_server_host) 
-    Execute('echo namenode host: ' + params.namenode_host)    
+    #Execute('echo namenode host: ' + params.namenode_host)    
     Execute('echo nimbus host: ' + params.nimbus_host)
-    Execute('echo hive metastore host: ' + params.hive_metastore_host)
+    #Execute('echo hive metastore host: ' + params.hive_metastore_host)
     Execute('echo supervisor hosts: ' + params.supervisor_hosts)    
     Execute('echo hbase zookeeper: ' + params.hbase_zookeeper)   
     Execute('echo kafka host: ' + params.kafka_broker_host)    
@@ -28,8 +28,8 @@ class Master(Script):
 
     #Execute('echo kafka-broker dump: ' + str(', '.join(params.config['configurations']['kafka-broker'])))  
     Execute('echo demo port: ' + params.port)
-    Execute('echo namenode port: ' + params.namenode_port)
-    Execute('echo hive MS port: ' + params.hive_metastore_port)
+    #Execute('echo namenode port: ' + params.namenode_port)
+    #Execute('echo hive MS port: ' + params.hive_metastore_port)
     Execute('echo kafka port: ' + params.kafka_port)
 
     if params.use_public_git:
