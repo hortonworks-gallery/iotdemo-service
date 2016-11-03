@@ -91,6 +91,7 @@ class Master(Script):
   def start(self, env):
     import params
     import status_params
+    import time
     self.configure(env)
     env.set_params(params)
     
@@ -134,6 +135,7 @@ class Master(Script):
     start_cmd=format('cd {webapp_dir}; {mvn_home}/maven/bin/mvn jetty:run -X -Dservice.registry.config.location={webapp_dir}/src/main/resources/config/dev/registry -Dtrucking.activemq.host={activemq_host} -Djetty.port={port};')      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
 	
+	time.sleep(10)
 
   def status(self, env):
     import status_params
