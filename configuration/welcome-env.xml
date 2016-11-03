@@ -44,6 +44,11 @@
 	          	&lt;td&gt; &lt;a ng-href="#/monitorTrucks"&gt; Truck Monitoring Application &lt;/a&gt; &lt;/td&gt;
 	          	&lt;td&gt;A Real-time Truck Monitoring application powered by the HDF Platform&lt;/td&gt;
 	          &lt;/tr&gt;	
+	          &lt;tr&gt;
+	          	&lt;td&gt; &lt;a href="http://{{ambari_server_host}}:9995/#/notebook/2AS5TY6AQ"&gt; Zeppelin notebook &lt;/a&gt; &lt;/td&gt;
+	          	&lt;td&gt;A web-based notebook that enables interactive data analytics on truck events&lt;/td&gt;
+	          &lt;/tr&gt;
+
 	         	                  
   	    &lt;/table&gt;
   	    

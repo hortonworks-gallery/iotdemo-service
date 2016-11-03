@@ -127,10 +127,10 @@ class Master(Script):
     #if os.path.exists('/opt/solr/ranger_audit_server/scripts/start_solr.sh'):
     #  Execute('/opt/solr/ranger_audit_server/scripts/start_solr.sh', ignore_failures=True)            
       
-    #start jetty app  
-    #Execute ('cd '+params.scripts_dir+'; storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties -c nimbus.host=' + nimbus_host + ' >> '+params.stack_log)
+    #rebuild webapp in case changes to welcome.html template
+    Execute(format('cd {webapp_dir}; {mvn_home}/maven/bin/mvn clean install -DskipTests=true >> {stack_log}'))  
     
-   
+    #start jetty app  
     start_cmd=format('cd {webapp_dir}; {mvn_home}/maven/bin/mvn jetty:run -X -Dservice.registry.config.location={webapp_dir}/src/main/resources/config/dev/registry -Dtrucking.activemq.host={activemq_host} -Djetty.port={port};')      
     Execute('nohup sh -c "'+start_cmd+'" >> '+params.stack_log+' 2>&1 & echo $! > ' + status_params.stack_pidfile)
 	

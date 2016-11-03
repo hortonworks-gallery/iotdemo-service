@@ -152,6 +152,8 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 ```
 
 
+
+
 #### Intall the view
 
 - If iotdemo service was *not* deployed on same node as Ambari server:
@@ -169,12 +171,58 @@ service ambari-server restart
 ```  
   - Start IotDemo service
 
+#### Post-install steps
+
+1. Check that Storm lib dir contains 2.6.2 version of log4j jars
+```
+# ls /usr/hdp/2.5.0.0-1245/storm/lib/log4j*2.6.2.jar
+/usr/hdp/2.5.0.0-1245/storm/lib/log4j-api-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-core-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-slf4j-impl-2.6.2.jar
+```
+
+- If not, its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars - available as part of Iot Demo installation (on the node it was installed)
+```
+mkdir ~/oldjars
+mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
+cp ~/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5*/storm/lib/
+```
+2. Check that Storm View is installed
+  - Run below on Ambari node
+    - If running on multi-node, replace $(hostname -f) with the hostname where Storm is running
+
+```
+  source ${demo_root}/ambari-bootstrap/extras/ambari_functions.sh
+  ambari_configs
+
+  read -r -d '' body <<EOF
+{
+  "ViewInstanceInfo": {
+    "instance_name": "StormAdmin", "label": "Storm View", "description": "Storm View",
+    "visible": true,
+    "properties": {
+      "storm.host" : "$(hostname -f)",
+      "storm.port" : "8744"
+    }
+  }
+}
+EOF
+  ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X DELETE
+  echo "${body}" | ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X POST -d @-
+```
+
+- If along the way, all your Ambari views disappear, run below to re-extract them:
+```
+#clear views work dir and restart Ambari
+
+rm -rf /var/lib/ambari-server/resources/views/work*
+service ambari-server restart
+```
 #### Access webapp
 
-- Open the webapp via Ambari view or at http://sandbox.hortonworks.com:8081/storm-demo-web-app/
-  - Login
-  - Generate <50 events
-  - Navigate to the monitoring and prediction webapps
+- Open the webapp via Ambari view or using the Quicklink or via http://sandbox.hortonworks.com:8081/iot-trucking-app and then:
+  - Click "Deploy the Storm Topology" to deploy topology
+  - Click "Truck Monitoring Application" to the monitoring webapp with the map
+  - From Ambari, under 'Iot Demo' > Service Actions > click 'Generate Events'
+  - After a few seconds, the map should display moving dots corresponding to the simulated driver events
 
 ![Image](../master/screenshots/iot-predictionapp.png?raw=true)
 

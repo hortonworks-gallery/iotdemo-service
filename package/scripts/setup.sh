@@ -116,8 +116,7 @@ $MVN_HOME/maven/bin/mvn clean install -DskipTests=true
 echo "Building iot-trucking-app..."
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app 
 $MVN_HOME/maven/bin/mvn clean install -DskipTests=true
-# With george's latest code, this step failing with: Failure to find com.hortonworks.registries:schema-registry-serdes:jar:0.1.0-SNAPSHOT
-# make sure pom for trucking-web-portal has org.ow2.asm dependencies
+
 
 echo "Building trucking-data-simulator assembly"
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
@@ -163,11 +162,13 @@ fi
 #ambari-server restart
 #sleep 15
 
-#update storm jar in storm lib dir
-#mkdir ${demo_root}/oldjars
-#mv /usr/hdp/2.5.0.0-1245/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
-#cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5.0.0-1245/storm/lib/
-
+#if storm located on same node and its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 jars with 2.6
+if [ -d /usr/hdp/2.5*/storm/lib/ ] && [ $(ls -la /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
+  echo "Updating storm jar in storm lib dir..."
+  mkdir ${demo_root}/oldjars
+  mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
+  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5*/storm/lib/
+fi
 
 if [ ! -d "${demo_root}/iotdemo-view" ]; then
   echo "Starting view compile..."
