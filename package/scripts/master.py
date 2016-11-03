@@ -83,7 +83,7 @@ class Master(Script):
     Execute('/opt/activemq/latest/bin/activemq stop')
     
     #kill topology
-    Execute('storm kill truck-event-processor -c nimbus.host=' + params.nimbus_host)
+    Execute('storm kill streaming-analytics-ref-app-phase3 -c nimbus.host=' + params.nimbus_host)
     
     #wait for topology to come down
     time.sleep(30)
