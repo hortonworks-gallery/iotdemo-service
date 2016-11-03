@@ -64,9 +64,15 @@
   <property>
     <name>demo.num_events</name>
     <value>50</value>
-    <description>Number of events per batch to simulate for each driver</description>
+    <description>Number of events per batch to simulate for each driver. Set to -1 to generate large number of events</description>
   </property> 
-    
+
+  <property>
+    <name>demo.event_delay</name>
+    <value>1500</value>
+    <description>Time delay between each simulated event (in milliseconds)</description>
+  </property> 
+      
 
   <property>
     <name>demo.hbase_zookeeper</name>

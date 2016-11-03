@@ -25,6 +25,7 @@ port = str(config['configurations']['demo-config']['demo.port'])
 use_public_git = config['configurations']['demo-config']['demo.use_public_git']
 mvn_home = config['configurations']['demo-config']['demo.mvn_home']
 num_events = str(config['configurations']['demo-config']['demo.num_events'])
+event_delay = str(config['configurations']['demo-config']['demo.event_delay'])
 
 master_configs = config['clusterHostInfo']
 ambari_host = str(master_configs['ambari_server_host'][0])
