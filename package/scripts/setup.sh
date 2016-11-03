@@ -122,8 +122,8 @@ cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
 $MVN_HOME/maven/bin/mvn assembly:assembly
 
 
-#install latest storm view jar
-if [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
+#if running on Ambari node, install latest storm view jar (if not already installed)
+if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
   cd /var/lib/ambari-server/resources/views/
   rm -f storm-view-2.*.jar
   wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
