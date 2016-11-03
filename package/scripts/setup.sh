@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -x -e
 
 export demo_root=$1
 export HOSTNAME=$2
@@ -172,23 +172,5 @@ if [ -d /usr/hdp/2.5*/storm/lib/ ] && [ $(ls -la /usr/hdp/2.5*/storm/lib/log4j*2
   cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5*/storm/lib/
 fi
 
-if [ ! -d "${demo_root}/iotdemo-view" ]; then
-  echo "Starting view compile..."
-  cd ${demo_root}
-  rm -rf iframe-view
-  git clone https://github.com/abajwa-hw/iframe-view.git
-  sed -i "s/iFrame View/IoT Demo/g" iframe-view/src/main/resources/view.xml   
-  sed -i "s/IFRAME_VIEW/IOTDEMO/g" iframe-view/src/main/resources/view.xml    
-  sed -i "s#sandbox.hortonworks.com:6080#$HOSTNAME:$PORT/iot-trucking-app#g" iframe-view/src/main/resources/index.html    
-  sed -i "s/iframe-view/iotdemo-view/g" iframe-view/pom.xml   
-  sed -i "s/Ambari iFrame View/IoTDemo View/g" iframe-view/pom.xml    
-  mv iframe-view iotdemo-view
-  cd iotdemo-view
-  echo "Starting mvn build. JAVA_HOME is $JAVA_HOME "
-  $MVN_HOME/maven/bin/mvn clean package
-  echo "View compile complete"
-else
-  echo "Iotdemo view already compiled"
-fi
 
 echo "Setup complete"
