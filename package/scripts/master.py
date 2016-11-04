@@ -98,7 +98,7 @@ class Master(Script):
     if not os.path.exists(status_params.stack_piddir):
       os.makedirs(status_params.stack_piddir)
 
-    if not os.path.exists(format('{install_dir}/hdp/refapp/trucking/trucking-storm-topology/5.0.0-SNAPSHOT/trucking-storm-topology-5.0.0-SNAPSHOT-shaded.jar')):
+    if not os.path.exists(format('{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-storm-topology/target/trucking-storm-topology-5.0.0-SNAPSHOT-shaded.jar')):
       # first time run
       if params.use_public_git:    
         install_script = format('{service_scriptsdir}/setup.sh')
