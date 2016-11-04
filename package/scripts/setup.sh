@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x -e
+set -x 
 
 export demo_root=$1
 export HOSTNAME=$2
@@ -37,6 +37,7 @@ sudo yum -y groupinstall "Development Tools"
 
 python3 --version
 ret=$? 
+set -e
 if [ ! $ret ]; then 
   echo "setup Python 3..."
   wget http://www.python.org/ftp/python/3.3.2/Python-3.3.2.tar.bz2 -O /var/tmp/Python-3.3.2.tar.bz2
