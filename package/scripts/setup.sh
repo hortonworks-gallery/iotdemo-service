@@ -125,6 +125,7 @@ echo "Building trucking-data-simulator assembly"
 cd ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator
 $MVN_HOME/maven/bin/mvn assembly:assembly
 
+set +e
 
 #if installing demo on Ambari node, install latest storm view jar (if not already installed)
 if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
