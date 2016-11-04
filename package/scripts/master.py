@@ -80,12 +80,12 @@ class Master(Script):
     #kill child processes if exists
     Execute (format('pkill -TERM -P `cat {stack_pidfile}` >/dev/null 2>&1'), ignore_failures=True)
     #kill process
-    Execute (format('kill `cat {stack_pidfile}` >/dev/null 2>&1')) 
+    Execute (format('kill `cat {stack_pidfile}` >/dev/null 2>&1'), ignore_failures=True) 
     #remove pid file
-    Execute (format("rm -f {stack_pidfile}"))
+    Execute (format("rm -f {stack_pidfile}"), ignore_failures=True)
     
     #kill activemq
-    Execute('/opt/activemq/latest/bin/activemq stop')
+    Execute('/opt/activemq/latest/bin/activemq stop', ignore_failures=True)
     
     #kill topology
     Execute('storm kill streaming-analytics-ref-app-phase3 -c nimbus.host=' + params.nimbus_host, ignore_failures=True)
