@@ -53,7 +53,7 @@ class Master(Script):
     import status_params    
     env.set_params(params)
     
-    #sed -i.bak "s|\(String plainCreds \)=.*|\1= \"user:pass\"|" ~/hdp/app-utils/hdp-app-utils/src/main/java/hortonworks/hdp/apputil/ambari/AmbariUtils.java
+    #sed -i.bak "s|\(String plainCreds \)=.*|\1= \"user:pass\";|" ~/hdp/app-utils/hdp-app-utils/src/main/java/hortonworks/hdp/apputil/ambari/AmbariUtils.java
     if params.ambari_connect_string != 'admin:admin':
       utils_file=format("{install_dir}/hdp/app-utils/hdp-app-utils/src/main/java/hortonworks/hdp/apputil/ambari/AmbariUtils.java")
       Execute(format('sed -i.bak "s|\(String plainCreds \)=.*|\\1= \\"{ambari_connect_string}\\"|" ' + utils_file))
