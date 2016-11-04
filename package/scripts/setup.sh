@@ -37,7 +37,7 @@ sudo yum -y groupinstall "Development Tools"
 
 python3 --version
 ret=$? 
-set -e
+
 if [ ! $ret ]; then 
   echo "setup Python 3..."
   wget http://www.python.org/ftp/python/3.3.2/Python-3.3.2.tar.bz2 -O /var/tmp/Python-3.3.2.tar.bz2
@@ -109,7 +109,7 @@ echo "create 'driver_dangerous_events_count', {NAME=> 'counters', VERSIONS=>3}" 
 echo "create 'driver_events', {NAME=> 'allevents', VERSIONS=>3}" | hbase shell
 
 
-
+set -e
 
 echo "building hdp-app-utils..."
 cd ${demo_root}/hdp/app-utils/hdp-app-utils 
