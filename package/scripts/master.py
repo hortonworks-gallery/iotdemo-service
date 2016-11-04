@@ -56,7 +56,7 @@ class Master(Script):
     #sed -i.bak "s|\(String plainCreds \)=.*|\1= \"user:pass\"|" ~/hdp/app-utils/hdp-app-utils/src/main/java/hortonworks/hdp/apputil/ambari/AmbariUtils.java
     if params.ambari_connect_string != 'admin:admin':
       utils_file=format("{install_dir}/hdp/app-utils/hdp-app-utils/src/main/java/hortonworks/hdp/apputil/ambari/AmbariUtils.java")
-      Execute(format('sed -i.bak "s|\(String plainCreds \)=.*|\\1= \"{ambari_connect_string}\"|" ' + utils_file))
+      Execute(format('sed -i.bak "s|\(String plainCreds \)=.*|\\1= \\"{ambari_connect_string}\\"|" ' + utils_file))
        
     content=InlineTemplate(status_params.demo_template_config)
     File(format("{install_dir}/hdp/reference-apps/iot-trucking-app/trucking-storm-topology/src/main/resources/config/dev/registry/trucking-streaming-hdp-service-config.properties"), content=content, owner='root',group='root', mode=0666)
