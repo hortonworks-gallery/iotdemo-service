@@ -38,6 +38,8 @@
     <property-type>PASSWORD</property-type>
     <value-attributes>
       <empty-value-valid>false</empty-value-valid>
+      <overridable>false</overridable>
+      <type>password</type>      
     </value-attributes>        
     <description>Ambari admin password</description>
   </property> 
