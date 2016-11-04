@@ -22,6 +22,26 @@
     <description>Port to run webapp on</description>
   </property> 
 
+
+  <property>
+    <name>demo.ambari_username</name>
+    <value>admin</value>
+    <value-attributes>
+      <empty-value-valid>false</empty-value-valid>
+    </value-attributes>    
+    <description>Ambari admin username</description>
+  </property> 
+  
+  <property>
+    <name>demo.ambari_password</name>
+    <value>admin</value>
+    <property-type>PASSWORD</property-type>
+    <value-attributes>
+      <empty-value-valid>false</empty-value-valid>
+    </value-attributes>        
+    <description>Ambari admin password</description>
+  </property> 
+  
   <!-- <property>
     <name>demo.use_public_git</name>
     <value>true</value>
