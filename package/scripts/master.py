@@ -115,11 +115,6 @@ class Master(Script):
     else:      
       Execute('echo Skipping mvn build as storm topoloy was found')    
     
-      #if iotdemo installed on ambari server, copy view jar into ambari views dir
-      if params.ambari_host == params.internal_host and not os.path.exists('/var/lib/ambari-server/resources/views/iotdemo-view-1.0-SNAPSHOT.jar'):
-        Execute('echo "Copying iodemo view jar to ambari views dir"')      
-        Execute('/bin/cp -f /root/iotdemo-view/target/*.jar /var/lib/ambari-server/resources/views')
-    
     
     nimbus_host = str(params.master_configs['nimbus_hosts'][0])
     
