@@ -2,7 +2,7 @@
 set -x 
 
 export demo_root=$1
-export HOSTNAME=$2
+export STORMUI_HOSTNAME=$2
 export PORT=$3
 export JAVA_HOME=$4
 export MVN_HOME=$5
@@ -149,7 +149,7 @@ if [ -d /var/lib/ambari-server/ ]; then
     "instance_name": "StormAdmin", "label": "Storm View", "description": "Storm View",
     "visible": true,
     "properties": {
-      "storm.host" : "$(hostname -f)",
+      "storm.host" : "${STORMUI_HOSTNAME}",
       "storm.port" : "8744"
     }
   }

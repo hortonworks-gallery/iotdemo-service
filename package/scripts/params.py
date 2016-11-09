@@ -73,6 +73,7 @@ supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
 nifi_host = str(master_configs['nifi_master_hosts'][0])
 hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
+storm_ui_server_host = str(master_configs['storm_ui_server_hosts'][0])
 if 'port' in config['configurations']['kafka-broker']:
   kafka_port = str(config['configurations']['kafka-broker']['port'])
 else:

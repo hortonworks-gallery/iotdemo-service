@@ -19,7 +19,7 @@ class Master(Script):
     
     Execute('echo ambari host: ' + params.ambari_server_host) 
     #Execute('echo namenode host: ' + params.namenode_host)    
-    Execute('echo nimbus host: ' + params.nimbus_host)
+    Execute('echo storm_ui_server_host: ' + params.storm_ui_server_host)
     #Execute('echo hive metastore host: ' + params.hive_metastore_host)
     Execute('echo supervisor hosts: ' + params.supervisor_hosts)    
     Execute('echo hbase zookeeper: ' + params.hbase_zookeeper)   
@@ -88,10 +88,10 @@ class Master(Script):
     Execute('/opt/activemq/latest/bin/activemq stop', ignore_failures=True)
     
     #kill topology
-    Execute('storm kill streaming-analytics-ref-app-phase3 -c nimbus.host=' + params.nimbus_host, ignore_failures=True)
+    #Execute('storm kill streaming-analytics-ref-app-phase3 -c nimbus.host=' + params.nimbus_host, ignore_failures=True)
     
     #wait for topology to come down
-    time.sleep(30)
+    #time.sleep(30)
           
   def start(self, env):
     import params
@@ -110,7 +110,10 @@ class Master(Script):
       else:
         install_script = format('{service_scriptsdir}/setup_private.sh')      
       Execute (format('chmod +x {service_scriptsdir}/*.sh'))
-      Execute (format('{install_script} "{install_dir}" "{public_host}" "{port}" "{jdk64_home}" "{mvn_home}" >> {stack_log}'))
+      Execute (format('{install_script} "{install_dir}" "{storm_ui_server_host}" "{port}" "{jdk64_home}" "{mvn_home}" >> {stack_log}'))
+      #distribute 2.6.2 log4j jars to all nodes
+      Execute (format('cp {install_dir}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar  /var/lib/ambari-server/resources/host_scripts/'))
+
       
     else:      
       Execute('echo Skipping mvn build as storm topoloy was found')    

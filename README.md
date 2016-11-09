@@ -171,7 +171,7 @@ service ambari-server restart
 ```  
   - Start IotDemo service
 
-#### Post-install steps
+#### Post-install manual steps
 
 1. Check that Storm lib dir contains 2.6.2 version of log4j jars
 ```
@@ -179,14 +179,16 @@ service ambari-server restart
 /usr/hdp/2.5.0.0-1245/storm/lib/log4j-api-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-core-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-slf4j-impl-2.6.2.jar
 ```
 
-- If not, its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars - available as part of Iot Demo installation (on the node it was installed)
+- If not, its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars. This needs to be manually run on all nodes where Storm is installed
 ```
-mkdir ~/oldjars
-mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
-cp ~/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5*/storm/lib/
+sudo mkdir ~/oldjars
+sudo mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
+sudo cp /var/lib/ambari-agent/cache/host_scripts/*.jar  /usr/hdp/2.5*/storm/lib/
+ls /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar
 ```
-2. Check that Storm View is installed
-  - Run below on Ambari node
+2. Install latest Storm view
+  - If you installed IotDemo service on the same node where Ambari is running, this should have been taken care of
+  - Otherwise: Run below on Ambari node
     - If running on multi-node, replace $(hostname -f) with the hostname where Storm is running
 
 ```
