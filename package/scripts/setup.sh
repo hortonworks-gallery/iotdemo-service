@@ -6,6 +6,8 @@ export STORMUI_HOSTNAME=$2
 export PORT=$3
 export JAVA_HOME=$4
 export MVN_HOME=$5
+export ambari_user=$6
+export ambari_pass=$7
 
 #AMBARI_HOST=`hostname -f`
 #AMBARI_PORT=8080
@@ -137,11 +139,8 @@ fi
 
 
 # if installing demo on Ambari node, deploy storm view
-# TODO: change storm.host to appropriate host
 if [ -d /var/lib/ambari-server/ ]; then
   #Instantiate Storm view
-  source ${demo_root}/ambari-bootstrap/extras/ambari_functions.sh
-  ambari_configs
 
   read -r -d '' body <<EOF
 {
@@ -155,16 +154,11 @@ if [ -d /var/lib/ambari-server/ ]; then
   }
 }
 EOF
-  ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X DELETE
-  echo "${body}" | ${ambari_curl}/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X POST -d @-
+  curl -ksSu ${ambari_user}:${ambari_pass} -H x-requested-by:blah http://localhost:8080/api/v1/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X DELETE
+  echo "${body}" | curl -ksSu ${ambari_user}:${ambari_pass} -H x-requested-by:blah http://localhost:8080/api/v1/views/Storm_Monitoring/versions/0.1.0/instances/StormAdmin -X POST -d @-
 
 fi
 
-#need to do this outside Ambari
-#clear views work dir and restart Ambari
-#rm -rf work*
-#ambari-server restart
-#sleep 15
 
 #if storm located on same node and its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 jars with 2.6
 if [ -d /usr/hdp/2.5*/storm/lib/ ] && [ $(ls -la /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then

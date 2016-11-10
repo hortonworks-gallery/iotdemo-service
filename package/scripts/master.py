@@ -110,7 +110,7 @@ class Master(Script):
       else:
         install_script = format('{service_scriptsdir}/setup_private.sh')      
       Execute (format('chmod +x {service_scriptsdir}/*.sh'))
-      Execute (format('{install_script} "{install_dir}" "{storm_ui_server_host}" "{port}" "{jdk64_home}" "{mvn_home}" >> {stack_log}'))
+      Execute (format('{install_script} "{install_dir}" "{storm_ui_server_host}" "{port}" "{jdk64_home}" "{mvn_home}" "{ambari_user}" "{ambari_pass}" >> {stack_log}'))
       #distribute 2.6.2 log4j jars to all nodes
       Execute (format('cp {install_dir}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar  /var/lib/ambari-server/resources/host_scripts/'))
 
