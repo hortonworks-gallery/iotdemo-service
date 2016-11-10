@@ -173,13 +173,13 @@ service ambari-server restart
 
 #### Post-install manual steps
 
-1. Check that Storm lib dir contains 2.6.2 version of log4j jars
+1. Check that Storm lib dir contains 2.6.2 version of log4j jars. On Ambari node, the automation should have taken care of this.
 ```
 # ls /usr/hdp/2.5.0.0-1245/storm/lib/log4j*2.6.2.jar
 /usr/hdp/2.5.0.0-1245/storm/lib/log4j-api-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-core-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-slf4j-impl-2.6.2.jar
 ```
 
-- If not, its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars. This needs to be manually run on all nodes where Storm is installed
+- If the Storm lib dir does not contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars. This needs to be manually run on all nodes where Storm is installed
 ```
 sudo mkdir ~/oldjars
 sudo mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
