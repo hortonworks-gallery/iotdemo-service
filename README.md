@@ -223,32 +223,32 @@ service ambari-server restart
 Once the instance is up, you can follow the below steps to start the trucking demo. Video here
 
 - In Ambari, open 'IotDemo UI' using quicklink:
-![Image](/../../blob/hpd25/screenshots/1-iotdemo-quicklink.png?raw=true)
+![Image](/../../blob/hdp25/screenshots/1-iotdemo-quicklink.png?raw=true)
 https://github.com/hortonworks-gallery/iotdemo-service/raw/master/screenshots/config1.png
 https://github.com/hortonworks-gallery/iotdemo-service/raw/hdp25/screenshots/1-iotdemo-quicklink.png
 
 - In IotDemo UI, click "Deploy the Storm Topology"
-![Image](../hpd25/screenshots/2-deploy-topology.png?raw=true)
+![Image](../hdp25/screenshots/2-deploy-topology.png?raw=true)
 
 - After 30-60 seconds, the topology will be deployed. Confirm using the Storm View in Ambari:
-![Image](../hpd25/screenshots/3-storm-view-topologylist.png?raw=true)
+![Image](../hdp25/screenshots/3-storm-view-topologylist.png?raw=true)
 
 - Click "Truck Monitoring Application" link in 'IotDemo UI' to open the monitoring app showing an empty map.
-![Image](../hpd25/screenshots/4-open-monitoring-app.png?raw=true)
+![Image](../hdp25/screenshots/4-open-monitoring-app.png?raw=true)
 
 
 - Click 'Nifi Data Flow' in In IotDemo UI to launch Nifi and then double click on 'Iot Trucking demo' processor group. Then right click on both PublishKafka_0_10 processors > Configure > Properties. Confirm that the 'Kafka Broker' hostname/port is correctly populated. The flow should already be started so no other action needed.
-![Image](../hpd25/screenshots/6-open-nifi.png?raw=true)
-![Image](../hpd25/screenshots/7-nifi-flow.png?raw=true)
+![Image](../hdp25/screenshots/6-open-nifi.png?raw=true)
+![Image](../hdp25/screenshots/7-nifi-flow.png?raw=true)
 
 - In Ambari, click "Generate Events" to simulate 50 events (this can be configured)
-![Image](../hpd25/screenshots/8-iotdemo-generate-events.png?raw=true)
+![Image](../hdp25/screenshots/8-iotdemo-generate-events.png?raw=true)
 
 - Switch back to "Truck Monitoring Application" in IotDemo UI and after 30s the trucking events will appear on screen
-![Image](../hpd25/screenshots/9-iotdemo-running-app.png?raw=true)
+![Image](../hdp25/screenshots/9-iotdemo-running-app.png?raw=true)
 
 - Explore Storm topology using Storm View in Ambari
-![Image](../hpd25/screenshots/10-storm-view.png?raw=true)
+![Image](../hdp25/screenshots/10-storm-view.png?raw=true)
 
 - Alternatively check Storm UI for metrics
 ![Image](../master/screenshots/storm.png?raw=true)
