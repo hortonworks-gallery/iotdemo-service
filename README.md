@@ -223,9 +223,7 @@ service ambari-server restart
 Once the instance is up, you can follow the below steps to start the trucking demo. Video here
 
 - In Ambari, open 'IotDemo UI' using quicklink:
-![Image](/../../blob/hdp25/screenshots/1-iotdemo-quicklink.png?raw=true)
-https://github.com/hortonworks-gallery/iotdemo-service/raw/master/screenshots/config1.png
-https://github.com/hortonworks-gallery/iotdemo-service/raw/hdp25/screenshots/1-iotdemo-quicklink.png
+![Image](../hdp25/screenshots/1-iotdemo-quicklink.png?raw=true)
 
 - In IotDemo UI, click "Deploy the Storm Topology"
 ![Image](../hdp25/screenshots/2-deploy-topology.png?raw=true)
