@@ -72,10 +72,14 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 - Wait for all the operations to start/stop services complete
 
-- Deploy the IoTDemo service as well as [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
+- Deploy the IoTDemo service as well as [Apache Nifi service](https://github.com/abajwa-hw/ambari-nifi-service) and optionally, [Apache Zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service) to visualize/analyze violations events generated via prebuilt notebook
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-sudo git clone -b hdp25 https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO25   
+sudo git clone -b hdp25 https://github.com/hortonworks-gallery/iotdemo-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/IOTDEMO25  
+
+
+sudo git clone https://github.com/abajwa-hw/ambari-nifi-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/NIFIDEMO
+ 
 
 #(Optional) Zeppelin already comes installed on HDP 2.5 sandbox
 #sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
@@ -88,35 +92,12 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service ->  'IoT Demo' (also check 'Zeppelin' if not already installed) -> Next -> Next -> Configure service -> Next -> Deploy
+On bottom left -> Actions -> Add service ->  'IoT Demo' (also check 'Nifi' and 'Zeppelin' if not already installed) -> Next -> Next -> Configure service -> Next -> Deploy
 ![Image](../master/screenshots/select-service.png?raw=true)
 
 Things to remember while configuring the service
   
-  - The service currently requires that it is installed on the Ambari server node and that Kafka and Zookeeper and also running on the same node.
-    - If kafka is on a different node, the demo still could work (not tested) if you manually create the topics ahead of time 
-    ```
-    /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --zookeeper $ZK_HOST:2181 --replication-factor 1 --partitions 2 --topic truck_events
-    ```
 
-
-  - Under "Advanced demo-config". 
-    - enter public name/IP of IoTDemo node: This is used to setup the Ambari view. Set this to the public host/IP of IoTDemo node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of IoTDemo node. Alternatively, if you already have a local hosts file entry for the internal hostname of the IoTDemo node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-      - you should use the same value for publicname property in Zeppelin config as well
-    - **You do NOT have to enter your github credentials anymore**. The code will be picked up from https://github.com/hortonworks-gallery/iot-truck-streaming
-      
-  - The IoT demo configs are available under "Advanced demo-env", but do not require updating as all required configs will be auto-populated:
-    - Ambari host
-    - Name node host/port
-    - Nimbus host
-    - Hive metastore host/port
-    - Supervisor host
-    - HBase master host
-    - Kafka host/port (also where ActiveMQ will be installed)
-  
-![Image](../master/screenshots/config1.png?raw=true)
-
-![Image](../master/screenshots/config2.png?raw=true)
       
 - Once you click Deploy to start the install, it may take up to 20-30min because it is running a maven build under the covers
   - You can track progress by tailing the log file
@@ -154,26 +135,12 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 
 
-#### Intall the view
-
-- If iotdemo service was *not* deployed on same node as Ambari server:
-  - Transfer the compiled view jar from /root/iotdemo-view/target/*.jar on the iotdemo node to /var/lib/ambari-server/resources/views on ambari server node
-  - Follow steps below to stop IotDemo service, restart ambari, start IoTDemo service:
-
-- Otherwise, if iotdemo service was deployed on same node as Ambari server:
-  - Stop the IoTDemo service from Ambari
-  - Restart ambari
-```
-#sandbox
-service ambari restart
-#non sandbox
-service ambari-server restart
-```  
-  - Start IotDemo service
 
 #### Post-install manual steps
 
-1. Check that Storm lib dir contains 2.6.2 version of log4j jars. On Ambari node, the automation should have taken care of this.
+1. Download and import the Nifi flow template from [here](https://github.com/hortonworks/SE-demo/blob/master/IoT/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/src/main/resources/IoT.xml)
+ 
+2. Check that Storm lib dir contains 2.6.2 version of log4j jars. On Ambari node, the automation should have taken care of this.
 ```
 # ls /usr/hdp/2.5.0.0-1245/storm/lib/log4j*2.6.2.jar
 /usr/hdp/2.5.0.0-1245/storm/lib/log4j-api-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-core-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-slf4j-impl-2.6.2.jar
@@ -186,7 +153,8 @@ sudo mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
 sudo cp /var/lib/ambari-agent/cache/host_scripts/*.jar  /usr/hdp/2.5*/storm/lib/
 ls /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar
 ```
-2. Install latest Storm view
+
+3. Install latest Storm view (if not already installed)
   - If you installed IotDemo service on the same node where Ambari is running, this should have been taken care of
   - Otherwise: Run below on Ambari node
     - If running on multi-node, replace $(hostname -f) with the hostname where Storm is running
