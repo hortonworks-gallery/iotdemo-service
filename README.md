@@ -138,20 +138,23 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 #### Post-install manual steps
 
+0. Restart Ambari
+
 1. Download and import the Nifi flow template from [here](https://github.com/hortonworks/SE-demo/blob/master/IoT/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/src/main/resources/IoT.xml)
+Once imported, configure both PublishKafka_0_10 processors to set "Kafka Brokers" appropriately
  
 2. Check that Storm lib dir contains 2.6.2 version of log4j jars. On Ambari node, the automation should have taken care of this.
 ```
-# ls /usr/hdp/2.5.0.0-1245/storm/lib/log4j*2.6.2.jar
+# ls/usr/hd*/2.*/storm/lib/log4j*2.6.2.jar
 /usr/hdp/2.5.0.0-1245/storm/lib/log4j-api-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-core-2.6.2.jar  /usr/hdp/2.5.0.0-1245/storm/lib/log4j-slf4j-impl-2.6.2.jar
 ```
 
 - If the Storm lib dir does not contain 2.6.2 log4j jars, replace 2.1 log4j jars with 2.6.2 jars. This needs to be manually run on all nodes where Storm is installed
 ```
 sudo mkdir ~/oldjars
-sudo mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ~/oldjars
-sudo cp /var/lib/ambari-agent/cache/host_scripts/*.jar  /usr/hdp/2.5*/storm/lib/
-ls /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar
+sudo mv /usr/hd*/2*/storm/lib/log4j*-2.1.jar ~/oldjars
+sudo cp /var/lib/ambari-agent/cache/host_scripts/*.jar  /usr/hd*/2.*/storm/lib/
+ls /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar
 ```
 
 3. Install latest Storm view (if not already installed)
