@@ -161,11 +161,11 @@ fi
 
 
 #if storm located on same node and its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 jars with 2.6
-if [ -d /usr/hdp/2.5*/storm/lib/ ] && [ $(ls -la /usr/hdp/2.5*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
+if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
   echo "Updating storm jar in storm lib dir..."
   mkdir ${demo_root}/oldjars
-  mv /usr/hdp/2.5*/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
-  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hdp/2.5*/storm/lib/
+  mv /usr/hd*/2.*/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
+  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hd*/2.*/storm/lib/
 fi
 
 
