@@ -71,7 +71,10 @@ nimbus_host = str(master_configs['nimbus_hosts'][0])
 #hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']) #"9083"
 supervisor_hosts = str(', '.join(master_configs['supervisor_hosts']))
 nifi_host = str(master_configs['nifi_master_hosts'][0])
-hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
+if 'hbase-site' in config['configurations']:
+  hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
+else:
+  hbase_zookeeper = ''
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
 storm_ui_server_host = str(master_configs['storm_ui_server_hosts'][0])
 if 'port' in config['configurations']['kafka-broker']:
