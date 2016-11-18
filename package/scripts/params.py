@@ -30,6 +30,7 @@ port = str(config['configurations']['demo-config']['demo.port'])
 mvn_home = config['configurations']['demo-config']['demo.mvn_home']
 num_events = str(config['configurations']['demo-config']['demo.num_events'])
 event_delay = str(config['configurations']['demo-config']['demo.event_delay'])
+hbase_zk_input = config['configurations']['demo-config']['demo.hbase_zookeeper']
 
 ambari_user = str(config['configurations']['demo-config']['demo.ambari_username'])
 ambari_pass = str(config['configurations']['demo-config']['demo.ambari_password'])
@@ -74,7 +75,7 @@ nifi_host = str(master_configs['nifi_master_hosts'][0])
 if 'hbase-site' in config['configurations']:
   hbase_zookeeper = config['configurations']['hbase-site']['hbase.zookeeper.quorum']
 else:
-  hbase_zookeeper = ''
+  hbase_zookeeper = hbase_zk_input
 kafka_broker_host = str(master_configs['kafka_broker_hosts'][0])
 storm_ui_server_host = str(master_configs['storm_ui_server_hosts'][0])
 if 'port' in config['configurations']['kafka-broker']:
