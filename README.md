@@ -140,7 +140,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 0. Restart Ambari
 
-1. Download and import the Nifi flow template from [here](https://github.com/hortonworks/SE-demo/blob/master/IoT/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/src/main/resources/IoT.xml)
+1. Download and import the Nifi flow template from [here](https://github.com/hortonworks/SE-demo/raw/master/IoT/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/src/main/resources/IoT.xml)
 Once imported, configure both PublishKafka_0_10 processors to set "Kafka Brokers" appropriately
  
 2. Check that Storm lib dir contains 2.6.2 version of log4j jars. On Ambari node, the automation should have taken care of this.
