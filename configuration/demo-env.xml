@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+  <property>
+    <name>demo_piddir</name>
+    <value>/var/run/iotdemo</value>
+    <description>Process ID Directory</description>
+  </property> 
+
+ <property>
+    <name>content</name>
+    <description>This is the jinja template for trucking-streaming-hdp-service-config.properties file</description>
+    <value>
+# Properties Required to populate endpoints for Topology
+ambari.cluster.name={{cluster_name}}
+ambari.server.url=http://{{ambari_host}}:8080/
+hbase.deployment.mode=STANDALONE
+storm.deployment.mode=STANDALONE
+
+# Endpoints that are not managed by Ambari but could be ru-used by different Apps (so not prefixing with trucking)
+solr.server.url=
+
+# Since Hbase is not part of the HDF Managed Amabri Stack. We need to configure these as custom param since HDF Ambari won't be able to look it up.
+hbase.zookeeper.znode.parent=/hbase-unsecure
+hbase.zookeeper.client.port=2181
+hbase.zookeeper.host={{hbase_zookeeper}}
+
+
+# ----------- Everything below is Custom Properties for the Trucking Storm Topology -----------------------
+
+# Notification Settings for email
+#trucking.notification.email=false
+trucking.notification.email.address=user@domain.com
+trucking.notification.email.subject=Unsafe Driving Alerts
+trucking.mail.smtp.port=25
+
+# Notification Settings for AMQP topic
+trucking.notification.topic=true
+trucking.notification.topic.user=admin
+trucking.notification.topic.password=admin
+trucking.notification.topic.alerts.name=driver_alert_notifications
+trucking.notification.topic.events.name=driver_infraction_events
+trucking.notification.all.events.notification.topic=true
+trucking.notification.all.events.notification.topic.name=driver_events
+trucking.notification.topic.connection.url=tcp://{{activemq_host}}:61616
+
+
+# Kafka Spout Settings
+trucking.kafka.topic=truck_events
+trucking.kafka.consumer.group.id=group24
+
+trucking.speed.kafka.topic=truck_speed_events
+trucking.speed.kafka.consumer.group.id=group25
+
+#parallelism settings
+trucking.spout.thread.count=2
+trucking.bolt.thread.count=2
+
+#storm topology settings
+trucking.topology.name=streaming-analytics-ref-app-phase3
+trucking.storm.trucker.topology.workers=3
+# Used to do sampling: https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_storm-component-guide/content/storm-enabling-event-logging.html\u200B
+trucking.storm.topology.eventlogger.executors=1
+trucking.storm.topology.message.timeout.secs=500000
+
+#hdfs bolt settings
+trucking.hdfs.path=/truck-events-v4
+trucking.hdfs.file.prefix=truckEvents
+trucking.hdfsbolt.thread.count=4
+trucking.hdfs.file.rotation.time.minutes=10
+
+#hbase/phoenix bolt settings
+trucking.phoenix.enable=false
+trucking.hbase.persist.all.events=false
+
+
+#hive settings
+trucking.hive.staging.table.name=truck_events_text_partition_single
+trucking.hive.database.name=default
+trucking.hiveserver2.connect.user=hdfs
+
+#solr settings
+trucking.solr.index.enable=false
+trucking.solr.core=truck_event_logs
+trucking.solr.bolt.thread.count=4
+trucking.storm.topology.jar=/root/.m2/repository/hortonworks/hdp/refapp/trucking/trucking-storm-topology/5.0.0-SNAPSHOT/trucking-storm-topology-5.0.0-SNAPSHOT-shaded.jar
+    
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>    
+    <on-ambari-upgrade add="true"/>      
+  </property>
+
+        
+</configuration>  

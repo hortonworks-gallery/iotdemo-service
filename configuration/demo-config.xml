@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration supports_final="true">
+
+
+  <property>
+    <name>demo.install_dir</name>
+    <value>/root</value>
+    <description>Location to clone the demo git (required). 'hdp' subdir will be created under this location</description>
+  </property> 
+  
+  <!-- <property require-input="true">
+    <name>demo.scripts_path</name>
+    <value>sedev/demo-artifacts/storm_demo_2.2/storm_demo</value>
+    <description>Path to demo scripts dir within the git</description>
+  </property> -->
+    
+  <property>
+    <name>demo.port</name>
+    <value>8081</value>
+    <description>Port to run webapp on</description>
+  </property> 
+
+
+  <property>
+    <name>demo.ambari_username</name>
+    <value>admin</value>
+    <value-attributes>
+      <empty-value-valid>false</empty-value-valid>
+    </value-attributes>    
+    <description>Ambari admin username</description>
+  </property> 
+  
+  <property>
+    <name>demo.ambari_password</name>
+    <value>admin</value>
+    <property-type>PASSWORD</property-type>
+    <value-attributes>
+      <empty-value-valid>false</empty-value-valid>
+      <overridable>false</overridable>
+      <type>password</type>      
+    </value-attributes>        
+    <description>Ambari admin password</description>
+  </property> 
+  
+  <!-- <property>
+    <name>demo.use_public_git</name>
+    <value>true</value>
+    <description>Whether to use public github repo or private</description>
+  </property> 
+  
+    
+  <property>
+    <name>demo.git_username</name>
+    <value></value>
+    <value-attributes>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>    
+    <description>(Optional) Github username. Do NOT enter your email address. Only needed if use_public_git was set to false</description>
+  </property> 
+  
+  <property>
+    <name>demo.git_password</name>
+    <value></value>
+    <property-type>PASSWORD</property-type>
+    <value-attributes>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>        
+    <description>(Optional) Github password. Only needed if use_public_git was set to false</description>
+  </property> -->
+  
+  <property>
+    <name>demo.log</name>
+    <value>/var/log/iotdemo.log</value>
+    <description>Log file (required)</description>
+  </property> 
+    
+  <property>
+    <name>demo.mvn_home</name>
+    <value>/usr/local</value>
+    <description>Dir to install maven into. 'maven' subdir will be created under this location</description>
+  </property> 
+
+  <property>
+    <name>demo.num_events</name>
+    <value>50</value>
+    <description>Number of events per batch to simulate for each driver. Set to -1 to generate large number of events</description>
+  </property> 
+
+  <property>
+    <name>demo.event_delay</name>
+    <value>1000</value>
+    <description>Time delay between each simulated event (in milliseconds)</description>
+  </property> 
+      
+
+  <property>
+    <name>demo.hbase_zookeeper</name>
+    <value>{{hbase_zookeeper}}</value>
+    <description>HBase Zookeeper host. Will be auto-detected if Hase is installed on this cluster. Otherwise, this should be manually changed</description>
+  </property> 
+      
+
+    
+    
+    
+</configuration>
+
