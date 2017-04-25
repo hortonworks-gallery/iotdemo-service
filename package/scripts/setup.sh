@@ -130,12 +130,12 @@ $MVN_HOME/maven/bin/mvn assembly:assembly
 set +e
 
 #if installing demo on Ambari node, install latest storm view jar (if not already installed)
-if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
-  cd /var/lib/ambari-server/resources/views/
-  rm -f storm-view-2.*.jar
-  wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
-  chmod 777 storm-view-0.1.0.0.jar
-fi
+#if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
+#  cd /var/lib/ambari-server/resources/views/
+#  rm -f storm-view-2.*.jar
+#  wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
+#  chmod 777 storm-view-0.1.0.0.jar
+#fi
 
 
 # if installing demo on Ambari node, deploy storm view
@@ -161,12 +161,12 @@ fi
 
 
 #if storm located on same node and its lib dir doesn't contain 2.6.2 log4j jars, replace 2.1 jars with 2.6
-if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
-  echo "Updating storm jar in storm lib dir..."
-  mkdir ${demo_root}/oldjars
-  mv /usr/hd*/2.*/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
-  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hd*/2.*/storm/lib/
-fi
+#if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
+#  echo "Updating storm jar in storm lib dir..."
+#  mkdir ${demo_root}/oldjars
+#  mv /usr/hd*/2.*/storm/lib/log4j*-2.1.jar ${demo_root}/oldjars
+#  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hd*/2.*/storm/lib/
+#fi
 
 
 echo "Setup complete"
