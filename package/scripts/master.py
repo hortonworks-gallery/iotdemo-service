@@ -34,7 +34,7 @@ class Master(Script):
 
     if params.use_public_git:
       Execute ('rm -rf ' + os.path.join(params.install_dir,'hdp') , ignore_failures=True)
-      Execute ('cd ' + params.install_dir +'; git clone https://github.com/abajwa-hw/hdp >> '+params.stack_log)
+      Execute ('cd ' + params.install_dir +'; git clone https://github.com/sujithasankuhdp/hdp >> '+params.stack_log)
     else:
       #pull code
       Execute ('rm -rf ' + os.path.join(params.install_dir,'sedev') , ignore_failures=True)
