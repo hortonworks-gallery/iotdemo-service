@@ -130,12 +130,12 @@ $MVN_HOME/maven/bin/mvn assembly:assembly
 set +e
 
 #if installing demo on Ambari node, install latest storm view jar (if not already installed)
-#if [ -d /var/lib/ambari-server/resources/views/ ] && [ ! -f /var/lib/ambari-server/resources/views/storm-view-0.1.0.0.jar ]; then
-#  cd /var/lib/ambari-server/resources/views/
-#  rm -f storm-view-2.*.jar
-#  wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
-#  chmod 777 storm-view-0.1.0.0.jar
-#fi
+if [ -d /var/lib/ambari-server/resources/views/ ]; then
+  cd /var/lib/ambari-server/resources/views/
+  rm -f storm-view-2.*.jar
+  wget https://hipchat.hortonworks.com/files/1/1907/zF4FiDbf3sMXsjy/storm-view-0.1.0.0.jar
+  chmod 777 storm-view-0.1.0.0.jar
+fi
 
 
 # if installing demo on Ambari node, deploy storm view
