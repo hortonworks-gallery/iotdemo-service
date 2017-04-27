@@ -161,12 +161,20 @@ fi
 
 
 #if storm located on same node and its lib dir doesn't contain 2.6.2 log4j jars, replace 2.8 jars with 2.6.2
-if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
+#if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/log4j*2.6.2.jar | wc -l) != 3 ]; then
+#  echo "Updating storm jar in storm lib dir..."
+#  mkdir ${demo_root}/oldjars
+#  mv /usr/hd*/2.*/storm/lib/log4j*-2.8.jar ${demo_root}/oldjars
+#  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hd*/2.*/storm/lib/
+#fi
+
+#if storm located on same node and its lib dir doesn't contain storm-core-1.0.1.2 jar, replace existing storm-core jar with storm-core-1.0.1.2 jar
+if [ -d /usr/hd*/2.*/storm/lib/ ] && [ $(ls -la /usr/hd*/2.*/storm/lib/storm-core-1.0.1.2.0.0.0-579.jar | wc -l) != 1 ]; then
   echo "Updating storm jar in storm lib dir..."
   mkdir ${demo_root}/oldjars
-  mv /usr/hd*/2.*/storm/lib/log4j*-2.8.jar ${demo_root}/oldjars
-  cp ${demo_root}/hdp/reference-apps/iot-trucking-app/trucking-data-simulator/target/log4j*-2.6.2.jar /usr/hd*/2.*/storm/lib/
+  mv /usr/hd*/2.*/storm/lib/storm-core-*.jar ${demo_root}/oldjars
+  wget http://repo.hortonworks.com/content/repositories/releases/org/apache/storm/storm-core/1.0.1.2.0.0.0-579/storm-core-1.0.1.2.0.0.0-579.jar -P /usr/hd*/2.*/storm/lib/
+  chmod 777 /usr/hd*/2.*/storm/lib/storm-core-*.jar
 fi
-
 
 echo "Setup complete"
